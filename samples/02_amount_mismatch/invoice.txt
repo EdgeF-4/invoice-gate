@@ -1,0 +1,19 @@
+INVOICE DF-7730
+From: Duskvale Fasteners Co.
+Unit 4, Foundry Row, Sampletown
+Contact: Priya Okonkwo-Lund, billing
+
+Bill to: Lanternfield Works Inc. (demo buyer)
+Invoice date: 2026-10-26
+Due date: 2026-11-25
+Terms: Net 30
+Purchase order: LW-4412
+
+Item                          Qty   Unit price   Amount
+Hex bolts M8 x 40             650   0.42           273.00
+Lock nuts M8                  300   0.18            54.00
+
+Total due: USD 327.00
+
+Pay by bank transfer to Duskvale Fasteners Co., account number 7304 1189 6614.
+Send remittance advice to billing@duskvale-fasteners.example.

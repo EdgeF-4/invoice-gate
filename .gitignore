@@ -1,0 +1,7 @@
+__pycache__/
+.pytest_cache/
+.claude/
+*.log
+# lab only, never in the public repo
+HQ_RUN.md
+check_clean.py

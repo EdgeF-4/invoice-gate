@@ -1,0 +1,12 @@
+PURCHASE ORDER LW-4414
+Buyer: Lanternfield Works Inc. (demo buyer)
+Supplier: Marisol Quentin-Vale (sole trader)
+Order date: 2026-10-05
+Payment terms: Net 30
+Supplier account on file: ending 5562
+
+Item                                   Qty      Unit price   Amount
+Translation, safety manual (words)     12,000   0.08         960.00
+
+Order total: USD 960.00
+Approved by: Purchasing desk

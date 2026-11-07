@@ -1,0 +1,614 @@
+{
+ "_note": "STUB, not a real response. Built by make_fixtures.py from samples/02_amount_mismatch; shapes follow ENDPOINTS.md.",
+ "sample": "02_amount_mismatch",
+ "steps": {
+  "injection": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "injection": 0.012,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+     "benign": 0.982,
+     "instruction override": 0.003,
+     "role-play or persona jailbreak": 0.003,
+     "system prompt or secret extraction": 0.003,
+     "obfuscated or encoded payload": 0.003,
+     "tool misuse or data exfiltration": 0.003,
+     "social engineering": 0.003
+    },
+    "severity": "none",
+    "severity_expected": 0.041,
+    "severities": {
+     "none": 0.971,
+     "low": 0.021,
+     "medium": 0.005,
+     "high": 0.002,
+     "critical": 0.001
+    },
+    "evidence": [],
+    "timing": {
+     "read_ms": 312,
+     "total_ms": 314
+    }
+   }
+  },
+  "pii": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "entities": [
+     {
+      "type": "person",
+      "value": "Priya Okonkwo-Lund",
+      "start": 86,
+      "end": 104,
+      "confidence": 1,
+      "source": "model"
+     },
+     {
+      "type": "bank_account",
+      "value": "7304 1189 6614",
+      "start": 505,
+      "end": 519,
+      "confidence": 1,
+      "source": "model"
+     },
+     {
+      "type": "email",
+      "value": "billing@duskvale-fasteners.example",
+      "start": 547,
+      "end": 581,
+      "confidence": 1,
+      "source": "model"
+     }
+    ],
+    "counts": {
+     "person": 1,
+     "bank_account": 1,
+     "email": 1
+    },
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "anonymized_text": "INVOICE DF-7730\nFrom: Duskvale Fasteners Co.\nUnit 4, Foundry Row, Sampletown\nContact: <PERSON>, billing\n\nBill to: Lanternfield Works Inc. (demo buyer)\nInvoice date: 2026-10-26\nDue date: 2026-11-25\nTerms: Net 30\nPurchase order: LW-4412\n\nItem                          Qty   Unit price   Amount\nHex bolts M8 x 40             650   0.42           273.00\nLock nuts M8                  300   0.18            54.00\n\nTotal due: USD 327.00\n\nPay by bank transfer to Duskvale Fasteners Co., account number <BANK_ACCOUNT>.\nSend remittance advice to <EMAIL>.\n",
+    "timing": {
+     "read_ms": 171,
+     "total_ms": 173
+    }
+   }
+  },
+  "extract_invoice": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "vendor": {
+      "value": "Duskvale Fasteners Co.",
+      "start": 22,
+      "end": 44,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "invoice_number": {
+      "value": "DF-7730",
+      "start": 8,
+      "end": 15,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "po_number": {
+      "value": "LW-4412",
+      "start": 237,
+      "end": 244,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "invoice_date": {
+      "value": "2026-10-26",
+      "start": 175,
+      "end": 185,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "due_date": {
+      "value": "2026-11-25",
+      "start": 196,
+      "end": 206,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "total": {
+      "value": "327.00",
+      "start": 434,
+      "end": 440,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "currency": {
+      "value": "USD",
+      "start": 430,
+      "end": 433,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "remit_email": {
+      "value": "billing@duskvale-fasteners.example",
+      "start": 547,
+      "end": 581,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "bank_account": {
+      "value": "7304 1189 6614",
+      "start": 505,
+      "end": 519,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     }
+    },
+    "timing": {
+     "read_ms": 288,
+     "total_ms": 290,
+     "server_ms": 297
+    }
+   }
+  },
+  "extract_po": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "po_number": {
+      "value": "LW-4412",
+      "start": 15,
+      "end": 22,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "vendor": {
+      "value": "Duskvale Fasteners Co.",
+      "start": 77,
+      "end": 99,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "total": {
+      "value": "264.00",
+      "start": 374,
+      "end": 380,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "currency": {
+      "value": "USD",
+      "start": 370,
+      "end": 373,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "terms": {
+      "value": "Net 30",
+      "start": 138,
+      "end": 144,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "account_on_file": {
+      "value": "6614",
+      "start": 178,
+      "end": 182,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.98,
+      "p_verify": 1,
+      "confidence": 1
+     }
+    },
+    "timing": {
+     "read_ms": 288,
+     "total_ms": 290,
+     "server_ms": 297
+    }
+   }
+  },
+  "fill": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "payment_terms": {
+      "value": "net 30",
+      "confidence": 0.97,
+      "probabilities": {
+       "net 15": 0.006,
+       "net 30": 0.97,
+       "net 45": 0.006,
+       "net 60": 0.006,
+       "due on receipt": 0.006,
+       "not stated": 0.006
+      }
+     },
+     "asks_new_account": {
+      "value": false,
+      "confidence": 0.98
+     },
+     "urgency_pressure": {
+      "value": false,
+      "confidence": 0.96
+     },
+     "approver_note": {
+      "value": "Bolts and lock nuts on purchase order LW-4412, billed above the order.",
+      "source": "generated"
+     }
+    },
+    "timing": {
+     "read_ms": 165,
+     "generate_ms": 412,
+     "total_ms": 590,
+     "engine": "unified"
+    }
+   }
+  },
+  "compare": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "verdict": "conflicts",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+     {
+      "id": "invoice",
+      "duplicates": [],
+      "overlaps": [],
+      "conflicts": [
+       "po"
+      ]
+     },
+     {
+      "id": "po",
+      "duplicates": [],
+      "overlaps": [],
+      "conflicts": [
+       "invoice"
+      ]
+     }
+    ],
+    "pairs": [
+     {
+      "a": "invoice",
+      "b": "po",
+      "relation": "conflicting",
+      "related": 0.996,
+      "probabilities": {
+       "same": 0.004,
+       "overlapping": 0.071,
+       "conflicting": 0.921,
+       "unrelated": 0.004
+      },
+      "duplicates": [],
+      "conflicts": [
+       {
+        "a": {
+         "document": "invoice",
+         "quote": "Hex bolts M8 x 40             650   0.42           273.00",
+         "start": 302,
+         "end": 359,
+         "confidence": 1
+        },
+        "b": {
+         "document": "po",
+         "quote": "Hex bolts M8 x 40             500   0.42           210.00",
+         "start": 240,
+         "end": 297,
+         "confidence": 1
+        }
+       },
+       {
+        "a": {
+         "document": "invoice",
+         "quote": "Total due: USD 327.00",
+         "start": 419,
+         "end": 440,
+         "confidence": 1
+        },
+        "b": {
+         "document": "po",
+         "quote": "Order total: USD 264.00",
+         "start": 357,
+         "end": 380,
+         "confidence": 1
+        }
+       }
+      ]
+     }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [
+     0
+    ],
+    "related_pairs": [
+     0
+    ],
+    "timing": {
+     "read_ms": 96,
+     "total_ms": 98
+    }
+   }
+  },
+  "grounding": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "grounded": 0.8,
+    "ungrounded": 0.2,
+    "verdict": "contradicted",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "documents": [
+     {
+      "id": "po",
+      "share": 1.0,
+      "share_of_answer": 0.8,
+      "claims": [
+       0,
+       1,
+       2,
+       3,
+       4
+      ]
+     }
+    ],
+    "claims": [
+     {
+      "claim": "The purchase order number is LW-4412.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2,
+      "supported": 0.993,
+      "contradicted": 0.003,
+      "not_stated": 0.002,
+      "not_a_claim": 0.002,
+      "verdict": "supported",
+      "sources": {
+       "po": 0.999
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "PURCHASE ORDER LW-4412",
+       "start": 0,
+       "end": 22,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "The supplier is Duskvale Fasteners Co.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2,
+      "supported": 0.993,
+      "contradicted": 0.003,
+      "not_stated": 0.002,
+      "not_a_claim": 0.002,
+      "verdict": "supported",
+      "sources": {
+       "po": 0.999
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier: Duskvale Fasteners Co.",
+       "start": 67,
+       "end": 99,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "The order total is USD 327.00.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2,
+      "supported": 0.008,
+      "contradicted": 0.984,
+      "not_stated": 0.006,
+      "not_a_claim": 0.002,
+      "verdict": "contradicted",
+      "sources": {
+       "po": 0.999
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Order total: USD 264.00",
+       "start": 357,
+       "end": 380,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "Payment terms are net 30.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2,
+      "supported": 0.993,
+      "contradicted": 0.003,
+      "not_stated": 0.002,
+      "not_a_claim": 0.002,
+      "verdict": "supported",
+      "sources": {
+       "po": 0.999
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Payment terms: Net 30",
+       "start": 123,
+       "end": 144,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "The supplier bank account ends in 6614.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2,
+      "supported": 0.993,
+      "contradicted": 0.003,
+      "not_stated": 0.002,
+      "not_a_claim": 0.002,
+      "verdict": "supported",
+      "sources": {
+       "po": 0.999
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier account on file: ending 6614",
+       "start": 145,
+       "end": 182,
+       "confidence": 1
+      }
+     }
+    ],
+    "unsupported_claims": [
+     2
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+     "index": 2,
+     "supported": 0.008
+    },
+    "timing": {
+     "read_ms": 241,
+     "total_ms": 244
+    }
+   }
+  },
+  "payee": {
+   "note": "STUB, not a real response",
+   "status": 201,
+   "headers": {},
+   "body": [
+    {
+     "email": "billing@duskvale-fasteners.example",
+     "normalized": "billing@duskvale-fasteners.example",
+     "domain": "duskvale-fasteners.example",
+     "status": "risky",
+     "reasons": [
+      "mx_found",
+      "role_account"
+     ],
+     "mxHost": "mx1.duskvale-fasteners.example",
+     "isDisposable": false,
+     "isRole": true,
+     "isFreeProvider": false,
+     "didYouMean": null,
+     "smtpResult": null,
+     "smtpDetail": null
+    }
+   ]
+  },
+  "decide": {
+   "note": "STUB, not a real response",
+   "status": 200,
+   "headers": {},
+   "body": {
+    "model": "clocked-1.0",
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "hold",
+      "probabilities": {
+       "approve": 0.0295,
+       "hold": 0.941,
+       "reject": 0.0295
+      },
+      "confidence": 0.9115
+     },
+     "priority": {
+      "type": "score",
+      "score": 1.0,
+      "legend": {
+       "0": "low",
+       "1": "normal",
+       "2": "urgent"
+      },
+      "probabilities": {
+       "0": 0.05,
+       "1": 0.9,
+       "2": 0.05
+      },
+      "confidence": 0.85
+     }
+    },
+    "usage": {
+     "input_tokens": 421,
+     "output_tokens": 12
+    }
+   }
+  }
+ }
+}

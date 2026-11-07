@@ -1,0 +1,12 @@
+PURCHASE ORDER LW-4413
+Buyer: Lanternfield Works Inc. (demo buyer)
+Supplier: Brindlewick Cleaning Services
+Order date: 2026-10-01
+Payment terms: Net 30
+Supplier account on file: ending 4421
+
+Item                          Qty   Unit price   Amount
+Office cleaning, October        1   2,400.00     2,400.00
+
+Order total: USD 2,400.00
+Approved by: Purchasing desk

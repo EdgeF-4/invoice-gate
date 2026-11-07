@@ -1,0 +1,12 @@
+PURCHASE ORDER LW-4415
+Buyer: Lanternfield Works Inc. (demo buyer)
+Supplier: Marrowgate Print Studio
+Order date: 2026-08-20
+Payment terms: Net 30
+Supplier account on file: ending 2207
+
+Item                          Qty     Unit price   Amount
+Flyers A5, full colour        2,000   0.32         640.00
+
+Order total: USD 640.00
+Approved by: Purchasing desk

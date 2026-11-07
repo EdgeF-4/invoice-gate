@@ -1,0 +1,19 @@
+INVOICE FPG-2041
+From: Ferncastle Paper Goods Ltd
+12 Mill Lane Business Park, Sampletown
+Contact: Dana Whitlock, accounts team
+
+Bill to: Lanternfield Works Inc. (demo buyer)
+Invoice date: 2026-10-28
+Due date: 2026-11-27
+Terms: Net 30
+Purchase order: LW-4411
+
+Item                          Qty   Unit price   Amount
+A4 copy paper, box of 5        40   38.50        1,540.00
+Archive folders, pack of 25    12   21.25          255.00
+
+Total due: USD 1,795.00
+
+Pay by bank transfer to Ferncastle Paper Goods Ltd, account number 5521 0087 3301.
+Send remittance advice to billing@ferncastle-paper.example.

@@ -1,0 +1,19 @@
+INVOICE MPS-3307 (SECOND NOTICE: PAST DUE)
+From: Marrowgate Print Studio
+3 Ink Street, Sampletown
+Contact: Rowan Achterberg, studio office
+
+Bill to: Lanternfield Works Inc. (demo buyer)
+Invoice date: 2026-08-28
+Due date: 2026-09-27
+Terms: Net 30
+Purchase order: LW-4415
+
+Item                          Qty     Unit price   Amount
+Flyers A5, full colour        2,000   0.32         640.00
+
+Total due: USD 640.00
+
+This invoice is past due. Please pay at your earliest convenience.
+Pay by bank transfer to Marrowgate Print Studio, account number 6620 9013 2207.
+Send remittance advice to billing@marrowgate-print.example.

@@ -1,0 +1,12 @@
+PURCHASE ORDER LW-4416
+Buyer: Lanternfield Works Inc. (demo buyer)
+Supplier: Glimmerholt Electrical Supply
+Order date: 2026-10-19
+Payment terms: Net 30
+Supplier account on file: ending 8840
+
+Item                          Qty   Unit price   Amount
+LED panel 600 x 600, 36 W      24   47.00        1,128.00
+
+Order total: USD 1,128.00
+Approved by: Purchasing desk

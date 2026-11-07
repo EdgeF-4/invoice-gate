@@ -1,0 +1,13 @@
+PURCHASE ORDER LW-4411
+Buyer: Lanternfield Works Inc. (demo buyer)
+Supplier: Ferncastle Paper Goods Ltd
+Order date: 2026-10-20
+Payment terms: Net 30
+Supplier account on file: ending 3301
+
+Item                          Qty   Unit price   Amount
+A4 copy paper, box of 5        40   38.50        1,540.00
+Archive folders, pack of 25    12   21.25          255.00
+
+Order total: USD 1,795.00
+Approved by: Purchasing desk

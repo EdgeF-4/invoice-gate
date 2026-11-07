@@ -1,0 +1,21 @@
+INVOICE MQV-118
+From: Marisol Quentin-Vale, freelance technical translator
+Home office: 27 Larkspur Close, Sampletown
+Phone: +1 202 555 0143
+Email: marisol.qv@quentinvale-translate.example
+Date of birth: 1984-03-09
+Taxpayer number (SSN): 000-12-3456
+
+Bill to: Lanternfield Works Inc. (demo buyer)
+Invoice date: 2026-10-31
+Due date: 2026-11-30
+Terms: Net 30
+Purchase order: LW-4414
+
+Item                                   Qty      Unit price   Amount
+Translation, safety manual (words)     12,000   0.08         960.00
+
+Total due: USD 960.00
+
+Pay by bank transfer to Marisol Quentin-Vale, account number 3108 4471 5562.
+Send remittance advice to marisol.qv@quentinvale-translate.example.
