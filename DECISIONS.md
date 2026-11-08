@@ -49,11 +49,11 @@ Reasoning: an invoice that turns up long after its due date is often a resent co
 
 Fix (expectation, and a rule so it does not hang on the model): 05 is now expected to hold. Overdue is a hard check, so the hold no longer depends on how Decide reads a number: `overdue 41 days: a person checks it was not paid already`. Test: `test_overdue_invoice_is_held_for_a_person_even_when_decide_approves`.
 
-## Replay of the recorded answers after both fixes
+## Replay of the first run's answers after both fixes
 
 `python3 invoice_gate.py --replay --today 2026-11-07`
 
-| Sample | Decide (recorded) | Decision | Why |
+| Sample | Decide (first run) | Decision | Why |
 |---|---|---|---|
 | 01_clean | hold 0.5222, confidence 0.28 | APPROVE | every check passed; Decide unsure, flagged |
 | 02_amount_mismatch | hold 0.994 | HOLD | totals 327.00 against 264.00, Compare conflict, Verify contradicted the total |
@@ -63,6 +63,21 @@ Fix (expectation, and a rule so it does not hang on the model): 05 is now expect
 | 06_payee_no_mail | hold 0.9945 | HOLD | remittance domain accepts no mail; total not read |
 
 Replay answers each step with the recorded answer. The fixes changed the state and instructions sent to Decide, so the recorded Decide answers belong to the old request: a new `--real` run (about 172 credits) records answers to the new one, and `test_replay_on_the_real_fixtures_gives_the_expected_decisions` then checks them against the expected decisions.
+
+## Second real run, on the fixed requests (8 Nov 2026, 09:46 UTC)
+
+`python3 invoice_gate.py --real --today 2026-11-07`, then the replay. `fixtures/real_*.json` and `demo_transcript.txt` hold this run.
+
+| Sample | Decide (second run) | Decision |
+|---|---|---|
+| 01_clean | approve 0.9959, confidence 0.99 | APPROVE |
+| 02_amount_mismatch | hold 0.9955 | HOLD |
+| 03_injected | (not asked: Guard 0.996) | HOLD |
+| 04_personal_data | approve 0.9961 | APPROVE |
+| 05_overdue | hold 0.9963 | HOLD |
+| 06_payee_no_mail | hold 0.9957 | HOLD |
+
+The same six decisions. With the gate's own check results in the state, Decide answered every sample clearly (confidence 0.99); the near tie on 01 (0.28) is gone. 42 calls, 145 credits (172 in the first run). `test_replay_on_the_real_fixtures_gives_the_expected_decisions` passes on these answers.
 
 ## Seen in the real run, not changed yet
 

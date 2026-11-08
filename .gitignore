@@ -6,3 +6,6 @@ __pycache__/
 HQ_RUN.md
 check_clean.py
 RUN_DONE_*
+RUN2_DONE_*
+fixtures_bak_*/
+*.bak-hq-*

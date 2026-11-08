@@ -1,17 +1,17 @@
 {
- "_note": "REAL responses, last saved 2026-11-08 07:39 UTC by invoice_gate.py",
+ "_note": "REAL responses, last saved 2026-11-08 09:46 UTC by invoice_gate.py",
  "sample": "02_amount_mismatch",
  "steps": {
   "injection": {
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=118.7, discovery;dur=0.0, model;dur=31.3, settle;dur=5.3, gateway;dur=129.8",
+    "server-timing": "admit;dur=4.0, admit_db;dur=0.9, upstream;dur=120.7, discovery;dur=0.0, model;dur=25.0, settle;dur=4.2, gateway;dur=129.0",
     "x-clocked-cost-basis": "reference",
     "x-clocked-cost-usd": "0.000398",
     "x-clocked-credits": "2",
-    "x-clocked-model-ms": "31.286688",
-    "x-clocked-transport": "door:east"
+    "x-clocked-model-ms": "25.040319",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -41,8 +41,8 @@
     },
     "evidence": [],
     "timing": {
-     "read_ms": 34,
-     "total_ms": 35
+     "read_ms": 28,
+     "total_ms": 29
     }
    }
   },
@@ -50,12 +50,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=7.1, admit_db;dur=2.1, upstream;dur=238.6, discovery;dur=0.0, model;dur=151.5, settle;dur=5.4, gateway;dur=251.1",
+    "server-timing": "admit;dur=5.4, admit_db;dur=2.2, upstream;dur=203.9, discovery;dur=0.0, model;dur=122.6, settle;dur=3.5, gateway;dur=212.9",
     "x-clocked-cost-basis": "reference",
-    "x-clocked-cost-usd": "0.001394",
-    "x-clocked-credits": "7",
-    "x-clocked-model-ms": "151.473465",
-    "x-clocked-transport": "door:east"
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "122.599548",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -125,8 +125,8 @@
     },
     "anonymized_text": "INVOICE DF-7730\nFrom: Duskvale Fasteners Co.\n<ADDRESS>\nContact: <PERSON>, billing\n\nBill to: Lanternfield Works Inc. (demo buyer)\nInvoice date: 2026-10-26\nDue date: 2026-11-25\nTerms: Net 30\nPurchase order: LW-4412\n\nItem                          Qty   Unit price   Amount\nHex bolts M8 x 40             650   0.42           273.00\nLock nuts M8                  300   0.18            54.00\n\nTotal due: USD 327.00\n\nPay by bank transfer to Duskvale Fasteners Co., account number <BANK_ACCOUNT>.\nSend remittance advice to <EMAIL>.\n",
     "timing": {
-     "read_ms": 153,
-     "total_ms": 155
+     "read_ms": 124,
+     "total_ms": 125
     }
    }
   },
@@ -134,12 +134,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=5.9, admit_db;dur=0.9, upstream;dur=157.4, discovery;dur=0.0, model;dur=71.3, settle;dur=5.7, gateway;dur=169.0",
+    "server-timing": "admit;dur=4.1, admit_db;dur=0.9, upstream;dur=142.1, discovery;dur=0.0, model;dur=61.6, settle;dur=3.7, gateway;dur=149.9",
     "x-clocked-cost-basis": "reference",
     "x-clocked-cost-usd": "0.000598",
     "x-clocked-credits": "3",
-    "x-clocked-model-ms": "71.345406",
-    "x-clocked-transport": "door:east"
+    "x-clocked-model-ms": "61.580418",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -277,26 +277,26 @@
      }
     },
     "timing": {
-     "read_ms": 71,
+     "read_ms": 61,
      "forwards": {
       "fields": [
-       3,
-       1
+       4,
+       0
       ]
      },
      "stages": {
       "fields": {
        "doc": 0,
-       "point": 22,
-       "resolve": 21,
+       "point": 15,
+       "resolve": 19,
        "extend": 0,
-       "contest": 26,
+       "contest": 25,
        "lists": 0,
        "verify": 0
       }
      },
-     "total_ms": 71,
-     "server_ms": 73
+     "total_ms": 61,
+     "server_ms": 63
     }
    }
   },
@@ -304,12 +304,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=7.3, admit_db;dur=2.2, upstream;dur=173.1, discovery;dur=0.0, model;dur=86.5, settle;dur=7.5, gateway;dur=187.9",
+    "server-timing": "admit;dur=4.0, admit_db;dur=0.9, upstream;dur=146.9, discovery;dur=0.0, model;dur=66.3, settle;dur=3.9, gateway;dur=154.7",
     "x-clocked-cost-basis": "reference",
-    "x-clocked-cost-usd": "0.000797",
-    "x-clocked-credits": "4",
-    "x-clocked-model-ms": "86.453468",
-    "x-clocked-transport": "door:east"
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "66.323456",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -358,26 +358,26 @@
      }
     },
     "timing": {
-     "read_ms": 86,
+     "read_ms": 66,
      "forwards": {
       "fields": [
        4,
-       1
+       0
       ]
      },
      "stages": {
       "fields": {
        "reader": "recognition",
-       "doc": 2,
+       "doc": 0,
        "branches": 0,
-       "generate": 57,
+       "generate": 39,
        "locate": 0,
        "verify": 25,
        "assemble": 0
       }
      },
-     "total_ms": 86,
-     "server_ms": 89
+     "total_ms": 66,
+     "server_ms": 68
     }
    }
   },
@@ -385,12 +385,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=6.9, admit_db;dur=2.1, upstream;dur=199.7, discovery;dur=0.0, model;dur=111.2, settle;dur=5.4, gateway;dur=211.9",
+    "server-timing": "admit;dur=3.9, admit_db;dur=0.8, upstream;dur=180.9, discovery;dur=0.0, model;dur=98.5, settle;dur=5.7, gateway;dur=190.5",
     "x-clocked-cost-basis": "reference",
-    "x-clocked-cost-usd": "0.000996",
-    "x-clocked-credits": "5",
-    "x-clocked-model-ms": "111.23155",
-    "x-clocked-transport": "door:east"
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.50115",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -430,11 +430,11 @@
      }
     },
     "timing": {
-     "read_ms": 48,
-     "generate_ms": 100,
-     "total_ms": 116,
+     "read_ms": 36,
+     "generate_ms": 89,
+     "total_ms": 102,
      "source_states": 1,
-     "source_prefills": 1,
+     "source_prefills": 0,
      "shared_source_tokens": 256,
      "shared_read_generate_forwards": 1,
      "engine": "unified"
@@ -445,12 +445,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=5.9, admit_db;dur=0.8, upstream;dur=240.0, discovery;dur=0.0, model;dur=147.2, settle;dur=5.6, gateway;dur=251.5",
+    "server-timing": "admit;dur=5.3, admit_db;dur=2.3, upstream;dur=201.5, discovery;dur=0.0, model;dur=115.5, settle;dur=3.6, gateway;dur=210.4",
     "x-clocked-cost-basis": "reference",
-    "x-clocked-cost-usd": "0.001195",
-    "x-clocked-credits": "6",
-    "x-clocked-model-ms": "147.214941",
-    "x-clocked-transport": "door:east"
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "115.475715",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -544,15 +544,15 @@
     ],
     "stages": {
      "pairs_reread": 0,
-     "pairs_ms": 23,
+     "pairs_ms": 13,
      "passage_reads": 1,
-     "passages_ms": 42,
+     "passages_ms": 23,
      "passages": 2,
-     "counterparts_ms": 88
+     "counterparts_ms": 85
     },
     "timing": {
-     "read_ms": 153,
-     "total_ms": 156
+     "read_ms": 121,
+     "total_ms": 123
     }
    }
   },
@@ -560,12 +560,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=10.0, admit_db;dur=0.8, upstream;dur=299.3, discovery;dur=0.0, model;dur=132.0, settle;dur=28.4, gateway;dur=337.8",
+    "server-timing": "admit;dur=4.2, admit_db;dur=0.9, upstream;dur=191.0, discovery;dur=0.0, model;dur=106.3, settle;dur=4.0, gateway;dur=199.2",
     "x-clocked-cost-basis": "reference",
-    "x-clocked-cost-usd": "0.001195",
-    "x-clocked-credits": "6",
-    "x-clocked-model-ms": "132.037918",
-    "x-clocked-transport": "door:east"
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "106.307968",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -708,8 +708,8 @@
      "supported": 0.0032
     },
     "timing": {
-     "read_ms": 137,
-     "total_ms": 138
+     "read_ms": 111,
+     "total_ms": 112
     }
    }
   },
@@ -717,12 +717,12 @@
    "note": "REAL response",
    "status": 200,
    "headers": {
-    "server-timing": "admit;dur=5.9, admit_db;dur=0.8, upstream;dur=113.5, discovery;dur=0.0, model;dur=24.6, settle;dur=5.6, gateway;dur=124.9",
+    "server-timing": "admit;dur=4.4, admit_db;dur=1.1, upstream;dur=114.8, discovery;dur=0.0, model;dur=29.7, settle;dur=3.4, gateway;dur=122.6",
     "x-clocked-cost-basis": "reference",
-    "x-clocked-cost-usd": "0.000199",
-    "x-clocked-credits": "1",
-    "x-clocked-model-ms": "24.555616",
-    "x-clocked-transport": "door:east"
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "29.738655",
+    "x-clocked-transport": "door:west"
    },
    "body": {
     "model": "clocked-1.0",
@@ -731,30 +731,30 @@
       "type": "choice",
       "choice": "hold",
       "probabilities": {
-       "approve": 0.0023,
-       "hold": 0.994,
-       "reject": 0.0038
+       "approve": 0.0018,
+       "hold": 0.9955,
+       "reject": 0.0026
       },
-      "confidence": 0.9909
+      "confidence": 0.9933
      },
      "priority": {
       "type": "score",
-      "score": 0.4025,
+      "score": 0.8398,
       "legend": {
        "0": "low",
        "1": "normal",
        "2": "urgent"
       },
       "probabilities": {
-       "0": 0.6122,
-       "1": 0.3732,
-       "2": 0.0147
+       "0": 0.2185,
+       "1": 0.7231,
+       "2": 0.0584
       },
-      "confidence": 0.4182
+      "confidence": 0.5847
      }
     },
     "usage": {
-     "input_tokens": 389,
+     "input_tokens": 436,
      "output_tokens": 6
     }
    }

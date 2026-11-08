@@ -41,6 +41,8 @@ Docs read with WebFetch on Sat 7 Nov 2026, 01:29 to 01:46 UTC, and the Decide pa
 
 A full invoice costs 30 to 34 credits (8 calls); the injected one 13 (it stops after Guard and Protect). ESTIMATE from these 6: the 4,000 credits of a free account cover about 120 invoices.
 
+Second real run on the fixed requests (8 Nov 2026, 09:46 UTC): all 42 calls HTTP 200; 145 credits in all; a full invoice 25 to 29, the injected one 11; about 165 invoices per free account (ESTIMATE).
+
 ## Guard: POST /injection (step `injection`)
 
 | Item | Detail | Doc |
