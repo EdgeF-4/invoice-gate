@@ -13,17 +13,20 @@ import invoice_gate as gate
 
 TODAY = date(2026, 11, 7)
 EXPECT = {"01_clean": "approve", "02_amount_mismatch": "hold", "03_injected": "hold",
-          "04_personal_data": "approve", "05_overdue": "approve", "06_payee_no_mail": "hold"}
+          "04_personal_data": "approve", "05_overdue": "hold", "06_payee_no_mail": "hold"}
 # Typed from the sample files by hand, independent of the Protect fixtures.
 PERSONAL = {
-    "01_clean": ["Dana Whitlock", "5521 0087 3301", "billing@ferncastle-paper.example"],
-    "02_amount_mismatch": ["Priya Okonkwo-Lund", "7304 1189 6614", "billing@duskvale-fasteners.example"],
-    "03_injected": ["Tomasz Ferreira-Holt", "4100 2563 4421", "9000 1122 7788", "billing@brindlewick-cleaning.example"],
+    "01_clean": ["Dana Whitlock", "5521 0087 3301", "billing@ferncastle-paper.example", "12 Mill Lane Business Park"],
+    "02_amount_mismatch": ["Priya Okonkwo-Lund", "7304 1189 6614", "billing@duskvale-fasteners.example",
+                           "Unit 4, Foundry Row"],
+    "03_injected": ["Tomasz Ferreira-Holt", "4100 2563 4421", "9000 1122 7788", "billing@brindlewick-cleaning.example",
+                    "8 Harbour Yard"],
     "04_personal_data": ["Marisol Quentin-Vale", "27 Larkspur Close", "+1 202 555 0143",
                          "marisol.qv@quentinvale-translate.example", "1984-03-09", "000-12-3456", "3108 4471 5562"],
-    "05_overdue": ["Rowan Achterberg", "6620 9013 2207", "billing@marrowgate-print.example"],
-    "06_payee_no_mail": ["Ines Barrowclough", "2291 5530 8840", "billing@example.net"],
+    "05_overdue": ["Rowan Achterberg", "6620 9013 2207", "billing@marrowgate-print.example", "3 Ink Street"],
+    "06_payee_no_mail": ["Ines Barrowclough", "2291 5530 8840", "billing@example.net", "22 Relay Road"],
 }
+REAL_RUN = "2026-11-07"  # the --today of the real run, so the overdue count stays 41 days
 ALL_STEPS = ["injection", "pii", "extract_invoice", "extract_po", "fill", "compare", "grounding", "decide"]
 
 
@@ -117,13 +120,127 @@ def test_amount_mismatch_is_held_on_the_totals():
     record, decision, _, _, _ = go("02_amount_mismatch")
     assert decision == "hold"
     assert "totals: invoice USD 327.00 vs PO USD 264.00" in record["holds"]
-    assert len(record["compare"]["conflicts"]) == 2
+    assert len(record["compare"]["conflicts"]) == 1
     assert [c["claim"] for c in record["verify"]["contradicted"]] == ["The order total is USD 327.00."]
 
 
-def test_overdue_invoice_is_flagged_not_held():
-    record, decision, _, _, _ = go("05_overdue")
-    assert decision == "approve" and record["flags"] == ["overdue 41 days"] and record["decide"]["priority"] == "urgent"
+def test_overdue_invoice_is_held_for_a_person_even_when_decide_approves():
+    """Fix 2 (DECISIONS.md): 41 days past due, matching its PO. The gate has no payment history,
+    so a person checks it was not paid already; the real Decide held it too (p 0.9324)."""
+    def model_says_approve(steps):
+        if "decide" in steps:
+            steps["decide"]["body"]["answers"]["action"].update(
+                choice="approve", probabilities={"approve": 0.99, "hold": 0.005, "reject": 0.005})
+    for patch in (None, model_says_approve):
+        record, decision, _, clocked, _ = go("05_overdue", patch)
+        assert decision == "hold" and record["holds"] == ["overdue 41 days: a person checks it was not paid already"]
+        state = json.loads(dict(clocked.calls)["decide"]["state"])
+        assert state["invoice"]["days_overdue"] == 41 and state["checks"]["failed_checks"] == record["holds"]
+    record, decision, _, _, _ = go("01_clean")  # due 27 Nov: not overdue on 7 Nov
+    assert decision == "approve" and record["holds"] == []
+
+
+def real_8_nov(choice, probabilities):
+    def patch(steps):
+        if "decide" in steps:
+            steps["decide"]["body"]["answers"]["action"].update(choice=choice, probabilities=probabilities)
+    return patch
+
+
+def test_decide_near_tie_leaves_a_clean_invoice_approved_and_a_clear_hold_holds():
+    """Fix 1 (DECISIONS.md): the real Decide answered 01 with a near tie (confidence 0.28), which
+    must not hold an invoice that passed every check; a clear hold (confidence 0.90) still does."""
+    record, decision, log, _, _ = go("01_clean", real_8_nov("hold", {"approve": 0.4388, "hold": 0.5222,
+                                                                     "reject": 0.039}))
+    assert decision == "approve" and record["holds"] == [] and record["decide"]["confidence"] == 0.2833
+    assert record["flags"] == ["decide unsure (hold at p 0.5222, confidence 0.28): the checks stand"]
+    record, decision, _, _, _ = go("01_clean", real_8_nov("hold", {"approve": 0.0363, "hold": 0.9324,
+                                                                   "reject": 0.0313}))
+    assert decision == "hold" and record["holds"] == ["decide: hold at p 0.9324 (confidence 0.90)"]
+    _, decision, _, _, _ = go("02_amount_mismatch", real_8_nov("reject", {"approve": 0.2, "hold": 0.35,
+                                                                          "reject": 0.45}))
+    assert decision == "hold"  # an unclear reject does not make a held invoice stricter
+    _, decision, _, _, _ = go("02_amount_mismatch", real_8_nov("reject", {"approve": 0.01, "hold": 0.09,
+                                                                          "reject": 0.9}))
+    assert decision == "reject"
+
+
+def test_decide_confidence_is_the_top_probability_rescaled():
+    """confidence = (p_top - 1/k) / (1 - 1/k) on every choice and yes_no answer the real run
+    recorded (Decide and Fill), and on the docs example (network 0.9933 -> 0.9899)."""
+    def rescaled(probs):
+        k = len(probs)
+        return (max(probs.values()) - 1 / k) / (1 - 1 / k)
+    checked = 0
+    for real in sorted(gate.FIXTURES.glob("real_*.json")):
+        steps = json.loads(real.read_text())["steps"]
+        answers = list(steps.get("decide", {}).get("body", {}).get("answers", {}).values())
+        answers += [f for f in steps.get("fill", {}).get("body", {}).get("fields", {}).values() if "probabilities" in f]
+        for a in answers:
+            assert abs(rescaled(a["probabilities"]) - a["confidence"]) < 0.001, (real.name, a)
+            checked += 1
+    assert checked >= 20 and round(rescaled({"network": 0.9933, "hardware": 0.0035, "identity": 0.0032}), 4) == 0.9899
+
+
+def test_replay_on_the_real_fixtures_gives_the_expected_decisions(capsys):
+    reals = sorted(p.stem[len("real_"):] for p in gate.FIXTURES.glob("real_*.json"))
+    assert reals == sorted(EXPECT)
+    assert gate.main(["--replay", "--today", REAL_RUN]) == 0
+    got = re.findall(r"^decision: (\w+)", capsys.readouterr().out, re.M)
+    assert got == [EXPECT[s].upper() for s in reals]
+
+
+def test_decide_state_is_valid_json_and_carries_the_gates_own_check_results():
+    for sample in EXPECT:
+        record, _, _, clocked, _ = go(sample)
+        if sample == "03_injected":
+            assert "decide" not in dict(clocked.calls)
+            continue
+        state = json.loads(dict(clocked.calls)["decide"]["state"])  # the 8 Nov state masked its own digits
+        checks = state["checks"]
+        assert isinstance(checks["injection_p"], float) and checks["injection_p"] == round(checks["injection_p"], 3)
+        assert checks["payee_email"].startswith("failed" if sample == "06_payee_no_mail" else "passed")
+        assert checks["failed_checks"] == [h for h in record["holds"] if not h.startswith("decide:")]
+    assert json.loads(dict(go("01_clean")[3].calls)["decide"]["state"])["checks"]["payee_email"] == \
+        "passed (mx_found, role_account)"
+
+
+NOT_READ = {"value": None, "confidence": 1, "p_blank": 0, "rejected_value": "21.25", "rejected_p_verify": 0,
+            "reason": "verification_rejected"}  # the real run's shape for a field Extract could not read
+
+
+def test_unread_due_date_does_not_hold_a_clean_invoice_but_an_unread_total_does():
+    def unread(name):
+        def patch(steps):
+            if "extract_invoice" in steps:
+                steps["extract_invoice"]["body"]["fields"][name] = dict(NOT_READ)
+        return patch
+    record, decision, _, clocked, _ = go("01_clean", unread("due_date"))
+    assert decision == "approve" and json.loads(dict(clocked.calls)["decide"]["state"])["invoice"]["due_date"] is None
+    record, decision, _, _, _ = go("01_clean", unread("total"))
+    assert decision == "hold" and "totals: could not read both totals" in record["holds"]
+
+
+def folded(paths):
+    """Key paths with the field name folded, so shapes compare whatever fields carried a key."""
+    return {re.sub(r"^fields\.[^.]+", "fields.*", p) for p in paths}
+
+
+def test_stubs_carry_the_real_response_shapes():
+    """Every key path the real run returned for a step appears in the stubs for that step, and the
+    stubs carry none it did not return. Allowed gap: the not-read field shape, because the stubs
+    read every field right."""
+    real, stub = {}, {}
+    for path in sorted(gate.FIXTURES.glob("real_*.json")):
+        sample = path.stem[len("real_"):]
+        for side, data in ((real, json.loads(path.read_text())),
+                           (stub, json.loads((gate.FIXTURES / f"{sample}.json").read_text()))):
+            for step, rec in data["steps"].items():
+                side.setdefault(step, set()).update(folded(gate.key_paths(rec["body"])))
+    not_read = folded(gate.key_paths({"fields": {"x": NOT_READ}}))
+    for step, paths in real.items():
+        assert not paths - stub[step] - not_read, (step, sorted(paths - stub[step] - not_read))
+        assert not stub[step] - paths, (step, sorted(stub[step] - paths))
 
 
 def test_payee_policy_role_ok_disposable_and_unknown_hold():

@@ -4,8 +4,9 @@ One run takes an invoice and its purchase order through Guard (/injection), Prot
 Extract (/extract), Fill (/fill), Compare (/compare), Verify (/grounding) and Decide (/decide),
 checks the remittance email with the Bulk Email Verifier Actor, and returns a record plus
 approve, hold or reject. Hard checks only make a decision stricter: the model never approves
-an invoice that a check held, and an invoice that carries an instruction aimed at the AI
-stops after Guard and Protect, so no later model step reads it.
+an invoice that a check held, its answer changes an outcome only when it is clear, and an
+invoice that carries an instruction aimed at the AI stops after Guard and Protect, so no
+later model step reads it.
 
 Transports are swappable: StubTransport answers from fixtures/, HttpsTransport calls the
 real APIs with a key read from the environment (never from a file, never logged or saved).
@@ -59,9 +60,12 @@ FILL_FIELDS = {
                       "description": "One plain sentence for the approver saying what the invoice is for"},
 }
 PII_KINDS = ["person", "email", "phone", "address", "date_of_birth", "ssn", "bank_account", "credit_card"]
-DECIDE_RULES = ("You review supplier invoices for accounts payable. Approve only when every check in the "
-                "state passed. Hold when any check failed or is missing. Reject only when the document is "
-                "not a bill for this buyer.")
+DECIDE_RULES = ("You review supplier invoices for accounts payable. The state lists the invoice facts and the "
+                "result of every check this gate ran. failed_checks names each failed check; an empty list "
+                "means every check passed. A fact shown as null was not read, which is not a failed check. "
+                "Approve when every check passed. Hold when a check failed or a person must look before "
+                "paying. Reject only when the document is not a bill for this buyer.")
+CLEAR = 0.5  # Decide confidence: 0 is a uniform guess over the options, 1 is certain (see final)
 DECIDE_QUESTIONS = {
     "action": {"type": "choice", "instructions": "What should accounts payable do with this invoice now?",
                "criteria": {"approve": "It matches its purchase order and every check passed",
@@ -323,17 +327,24 @@ def decide(clocked, state, log):
     r = clocked.post("decide", "/decide", {"state": state, "instructions": DECIDE_RULES, "questions": DECIDE_QUESTIONS})
     action, prio = r["answers"]["action"], r["answers"].get("priority") or {}
     level = (prio.get("legend") or {}).get(str(round(prio["score"]))) if "score" in prio else None
-    p = (action.get("probabilities") or {}).get(action["choice"])
-    log(f"decide: {action['choice']} (p {p}), priority {level}")
-    return {"choice": action["choice"], "p": p or 0.0, "probabilities": action.get("probabilities") or {},
+    probs = action.get("probabilities") or {}
+    p = probs.get(action["choice"]) or 0.0
+    # The top probability rescaled so a uniform guess is 0 and certainty is 1: this formula gives
+    # the response's own confidence field on every answer recorded in the 8 Nov 2026 real run.
+    sure = (p - 1 / len(probs)) / (1 - 1 / len(probs)) if len(probs) > 1 else 0.0
+    log(f"decide: {action['choice']} (p {p}, confidence {sure:.2f}), priority {level}")
+    return {"choice": action["choice"], "p": p, "confidence": round(sure, 4), "probabilities": probs,
             "priority": level}
 
 
 def final(holds, d):
-    """Hard holds win; the model may only make a held invoice stricter (reject), never approve it."""
+    """Hard holds win. Decide changes what the checks decided only when it is clear (confidence >=
+    CLEAR): a held invoice can become reject, a passed one hold or reject. It never approves what a
+    check held, and a near tie leaves the checks' outcome as it is."""
+    clear = d is not None and d["confidence"] >= CLEAR
     if d is None or holds:
-        return "reject" if d and d["choice"] == "reject" else "hold"
-    return d["choice"] if d["p"] >= 0.5 else "hold"
+        return "reject" if clear and d["choice"] == "reject" else "hold"
+    return d["choice"] if clear else "approve"
 
 
 def run(invoice, po, clocked, verifier, log=None, today=None):
@@ -377,17 +388,21 @@ def run(invoice, po, clocked, verifier, log=None, today=None):
             holds.append(pay["why"])
         due = parse_date(val(inv, "due_date"))
         overdue = (today - due).days if due and due < today else 0
-        if overdue:
-            flags.append(f"overdue {overdue} days")
+        if overdue:  # a late invoice is often a resent copy; this gate holds no payment history
+            holds.append(f"overdue {overdue} days: a person checks it was not paid already")
+        row = pay["row"] or {}
+        payee_state = ("not checked: no remittance email" if not val(inv, "remit_email")
+                       else ("failed" if pay["hold"] else "passed") + f" ({', '.join(row.get('reasons') or [])})")
         state = log.mask(json.dumps({
             "invoice": {"number": val(inv, "invoice_number"), "po": val(inv, "po_number"), "vendor": val(inv, "vendor"),
                         "total": str(inv_total), "currency": cur, "due_date": val(inv, "due_date"),
                         "days_overdue": overdue},
             "po": {"number": val(pof, "po_number"), "total": str(po_total), "currency": po_cur,
                    "terms": val(pof, "terms")},
-            "checks": {"injection_p": g["p"], "compare_relation": c["relation"], "conflicts": len(c["conflicts"]),
+            "checks": {"injection_p": round(g["p"], 3),  # unrounded, the long-number mask ate its digits
+                       "compare_relation": c["relation"], "conflicts": len(c["conflicts"]),
                        "contradicted_claims": [x["claim"] for x in v["contradicted"]],
-                       "payee_email": f"{(pay['row'] or {}).get('status')} {(pay['row'] or {}).get('reasons')}",
+                       "payee_email": payee_state,
                        "asks_new_account": f.get("asks_new_account"),
                        "urgency_pressure": f.get("urgency_pressure"), "failed_checks": holds},
         }, indent=1))
@@ -395,7 +410,10 @@ def run(invoice, po, clocked, verifier, log=None, today=None):
         record.update(invoice=inv, po=pof, fill=f, compare=c, verify=v, payee=pay["row"], decide=d)
     decision = final(holds, d)
     if not holds and decision != "approve" and d:
-        holds.append(f"decide: {d['choice']} at p {d['p']}")
+        holds.append(f"decide: {d['choice']} at p {d['p']} (confidence {d['confidence']:.2f})")
+    elif not holds and d and d["choice"] != "approve":
+        flags.append(f"decide unsure ({d['choice']} at p {d['p']}, confidence {d['confidence']:.2f}): "
+                     "the checks stand")
     record.update(decision=decision, holds=[log.mask(h) for h in holds], flags=flags)
     log(f"decision: {decision.upper()}" + "".join(f"; {log.mask(h)}" for h in holds)
         + "".join(f"; flag {x}" for x in flags))
