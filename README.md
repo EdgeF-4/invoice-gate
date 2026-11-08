@@ -2,6 +2,12 @@
 
 AI-safe invoice intake on the [Clocked](https://clocked.rezolve.ai/docs) API. One run takes a supplier invoice and the purchase order it bills, screens the invoice for instructions aimed at AI tools, masks personal data, reads the payable facts with their exact source positions, checks the invoice against its PO three ways, checks that the remittance email can receive mail, and returns **approve**, **hold** or **reject** with the evidence. Its log never holds a name, an email address or an account number.
 
+## Demo
+
+![invoice-gate replay](demo/demo.gif)
+
+Video, no sound: [demo/demo.mp4](demo/demo.mp4). Rebuild both from a real replay with `python3 demo/render_demo.py` (needs ffmpeg and Pillow).
+
 Built for the Clocked Build Challenge (21 Oct to 10 Nov 2026). Python 3.10 or newer, standard library only.
 
 ## Who it is for, and the problem
