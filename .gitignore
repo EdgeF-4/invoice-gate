@@ -5,3 +5,4 @@ __pycache__/
 # lab only, never in the public repo
 HQ_RUN.md
 check_clean.py
+RUN_DONE_*
