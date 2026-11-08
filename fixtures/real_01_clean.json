@@ -1,0 +1,715 @@
+{
+ "_note": "REAL responses, last saved 2026-11-08 07:38 UTC by invoice_gate.py",
+ "sample": "01_clean",
+ "steps": {
+  "injection": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=46.5, admit_db;dur=7.9, upstream;dur=357.2, discovery;dur=0.0, model;dur=27.2, settle;dur=6.1, gateway;dur=409.8",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "27.151585",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "injection": 0.0020438964324209774,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+     "benign": 0.9950671087623535,
+     "instruction override": 0.0012089227248544977,
+     "role-play or persona jailbreak": 0.0006623432962034105,
+     "system prompt or secret extraction": 0.0007891364083030428,
+     "obfuscated or encoded payload": 0.0006427723385086433,
+     "tool misuse or data exfiltration": 0.0007248556779538593,
+     "social engineering": 0.0009048607918230549
+    },
+    "severity": "none",
+    "severity_expected": 1.01,
+    "severities": {
+     "none": 0.9961151390282026,
+     "low": 0.0011093897558808812,
+     "medium": 0.0008737885338385657,
+     "high": 0.0008245473406861393,
+     "critical": 0.0010771353413918244
+    },
+    "evidence": [],
+    "timing": {
+     "read_ms": 33,
+     "total_ms": 33
+    }
+   }
+  },
+  "pii": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.2, admit_db;dur=1.5, upstream;dur=293.4, discovery;dur=0.0, model;dur=127.3, settle;dur=5.6, gateway;dur=305.1",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "127.280861",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "entities": [
+     {
+      "type": "address",
+      "value": "12 Mill Lane Business Park, Sampletown",
+      "start": 50,
+      "end": 88,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "person",
+      "value": "Dana Whitlock",
+      "start": 98,
+      "end": 111,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "bank_account",
+      "value": "5521 0087 3301",
+      "start": 524,
+      "end": 538,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "email",
+      "value": "billing@ferncastle-paper.example",
+      "start": 566,
+      "end": 598,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     }
+    ],
+    "counts": {
+     "address": 1,
+     "person": 1,
+     "bank_account": 1,
+     "email": 1
+    },
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "mentions": {
+     "candidates": 0,
+     "variants": 0,
+     "reads": 0,
+     "verified": 0,
+     "occurrences": {
+      "read": 0,
+      "kept": 0
+     },
+     "rejected": {},
+     "spans": 0,
+     "ms": 0
+    },
+    "checks": {
+     "trimmed": 0,
+     "split": 0,
+     "rejected": {}
+    },
+    "anonymized_text": "INVOICE FPG-2041\nFrom: Ferncastle Paper Goods Ltd\n<ADDRESS>\nContact: <PERSON>, accounts team\n\nBill to: Lanternfield Works Inc. (demo buyer)\nInvoice date: 2026-10-28\nDue date: 2026-11-27\nTerms: Net 30\nPurchase order: LW-4411\n\nItem                          Qty   Unit price   Amount\nA4 copy paper, box of 5        40   38.50        1,540.00\nArchive folders, pack of 25    12   21.25          255.00\n\nTotal due: USD 1,795.00\n\nPay by bank transfer to Ferncastle Paper Goods Ltd, account number <BANK_ACCOUNT>.\nSend remittance advice to <EMAIL>.\n",
+    "timing": {
+     "read_ms": 130,
+     "total_ms": 132
+    }
+   }
+  },
+  "extract_invoice": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.2, admit_db;dur=1.5, upstream;dur=165.7, discovery;dur=0.0, model;dur=78.5, settle;dur=5.7, gateway;dur=177.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "78.458336",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "vendor": {
+      "value": "Ferncastle Paper Goods Ltd",
+      "start": 23,
+      "end": 49,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.295,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "Ferncastle Paper Goods Ltd",
+        "start": 481,
+        "p_verify": 1
+       }
+      ],
+      "confidence": 1
+     },
+     "invoice_number": {
+      "value": "FPG-2041",
+      "start": 8,
+      "end": 16,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.428,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "Ferncastle Paper Goods Ltd",
+        "start": 23,
+        "p_verify": 0
+       },
+       {
+        "value": "Ferncastle Paper Goods Ltd",
+        "start": 481,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "po_number": {
+      "value": "LW-4411",
+      "start": 250,
+      "end": 257,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "invoice_date": {
+      "value": "28",
+      "start": 196,
+      "end": 198,
+      "p_start": 1,
+      "p_close": 0.989,
+      "p_point": 0.673,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "21",
+        "start": 409,
+        "p_verify": 0
+       },
+       {
+        "value": "2041",
+        "start": 12,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 0.989
+     },
+     "due_date": {
+      "value": null,
+      "confidence": 1,
+      "p_blank": 0,
+      "rejected_value": "21.25",
+      "rejected_p_verify": 0,
+      "reason": "verification_rejected"
+     },
+     "total": {
+      "value": "1,795.00",
+      "start": 447,
+      "end": 455,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.341,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "1,540.00",
+        "start": 364,
+        "p_verify": 0
+       },
+       {
+        "value": "11",
+        "start": 214,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "currency": {
+      "value": "USD",
+      "start": 443,
+      "end": 446,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "remit_email": {
+      "value": "billing@ferncastle-paper.example",
+      "start": 566,
+      "end": 598,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "bank_account": {
+      "value": "5521 0087 3301",
+      "start": 524,
+      "end": 538,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.995,
+      "p_verify": 1,
+      "confidence": 1
+     }
+    },
+    "timing": {
+     "read_ms": 78,
+     "forwards": {
+      "fields": [
+       3,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "doc": 0,
+       "point": 23,
+       "resolve": 21,
+       "extend": 0,
+       "contest": 31,
+       "lists": 0,
+       "verify": 0
+      }
+     },
+     "total_ms": 78,
+     "server_ms": 81
+    }
+   }
+  },
+  "extract_po": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.4, admit_db;dur=1.5, upstream;dur=182.8, discovery;dur=0.0, model;dur=96.3, settle;dur=5.3, gateway;dur=194.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "96.322884",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "po_number": {
+      "value": "LW-4411",
+      "start": 15,
+      "end": 22,
+      "confidence": 0.99999999975939,
+      "p_verify": 0.99999999975939
+     },
+     "vendor": {
+      "value": "Ferncastle Paper Goods Ltd",
+      "start": 77,
+      "end": 103,
+      "confidence": 0.9999999995478381,
+      "p_verify": 0.9999999995478381
+     },
+     "total": {
+      "value": "1,795.00",
+      "start": 378,
+      "end": 386,
+      "confidence": 0.9999999989960429,
+      "p_verify": 0.9999999989960429
+     },
+     "currency": {
+      "value": "USD",
+      "start": 374,
+      "end": 377,
+      "confidence": 0.9999999995103359,
+      "p_verify": 0.9999999995103359
+     },
+     "terms": {
+      "value": "Net 30",
+      "start": 142,
+      "end": 148,
+      "confidence": 0.9999999996126732,
+      "p_verify": 0.9999999996126732
+     },
+     "account_on_file": {
+      "value": "3301",
+      "start": 182,
+      "end": 186,
+      "confidence": 0.9999999972850466,
+      "p_verify": 0.9999999972850466
+     }
+    },
+    "timing": {
+     "read_ms": 96,
+     "forwards": {
+      "fields": [
+       5,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "reader": "recognition",
+       "doc": 1,
+       "branches": 0,
+       "generate": 66,
+       "locate": 0,
+       "verify": 26,
+       "assemble": 0
+      }
+     },
+     "total_ms": 96,
+     "server_ms": 98
+    }
+   }
+  },
+  "fill": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.4, admit_db;dur=1.4, upstream;dur=197.6, discovery;dur=0.0, model;dur=108.6, settle;dur=5.6, gateway;dur=209.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "108.565152",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "payment_terms": {
+      "value": "net 30",
+      "confidence": 0.994,
+      "probabilities": {
+       "net 15": 0.0008073667990841358,
+       "net 30": 0.9952083455749826,
+       "net 45": 0.0012495250855312798,
+       "net 60": 0.0010028444036103204,
+       "due on receipt": 0.0007535557411338199,
+       "not stated": 0.0009783623956578329
+      }
+     },
+     "asks_new_account": {
+      "value": false,
+      "confidence": 0.988,
+      "probabilities": {
+       "yes": 0.006028023445889152,
+       "no": 0.9939719765541108
+      }
+     },
+     "urgency_pressure": {
+      "value": false,
+      "confidence": 0.996,
+      "probabilities": {
+       "yes": 0.0022266966781183672,
+       "no": 0.9977733033218816
+      }
+     },
+     "approver_note": {
+      "value": "This invoice is for 40 boxes of A4 copy paper and 12 packs of archive folders",
+      "confidence": 0.9939977865128844,
+      "source": "generated"
+     }
+    },
+    "timing": {
+     "read_ms": 47,
+     "generate_ms": 98,
+     "total_ms": 113,
+     "source_states": 1,
+     "source_prefills": 1,
+     "shared_source_tokens": 256,
+     "shared_read_generate_forwards": 1,
+     "engine": "unified"
+    }
+   }
+  },
+  "compare": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=7.5, admit_db;dur=2.5, upstream;dur=191.9, discovery;dur=0.0, model;dur=99.6, settle;dur=5.3, gateway;dur=204.7",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "99.6432",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "verdict": "clean",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+     {
+      "id": "invoice",
+      "duplicates": [],
+      "overlaps": [],
+      "conflicts": []
+     },
+     {
+      "id": "po",
+      "duplicates": [],
+      "overlaps": [],
+      "conflicts": []
+     }
+    ],
+    "pairs": [
+     {
+      "a": "invoice",
+      "b": "po",
+      "relation": "overlapping",
+      "related": 0.9933,
+      "probabilities": {
+       "same": 0.0585,
+       "overlapping": 0.9207,
+       "conflicting": 0.0141,
+       "unrelated": 0.0067
+      },
+      "duplicates": [],
+      "conflicts": []
+     }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [],
+    "related_pairs": [
+     0
+    ],
+    "stages": {
+     "pairs_reread": 0,
+     "pairs_ms": 23,
+     "passage_reads": 1,
+     "passages_ms": 42,
+     "passages": 1,
+     "counterparts_ms": 40
+    },
+    "timing": {
+     "read_ms": 105,
+     "total_ms": 108
+    }
+   }
+  },
+  "grounding": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.7, admit_db;dur=0.9, upstream;dur=214.2, discovery;dur=0.0, model;dur=122.1, settle;dur=5.8, gateway;dur=225.7",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "122.091454",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "grounded": 0.7858,
+    "ungrounded": 0.2142,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "documents": [
+     {
+      "id": "po",
+      "share": 1,
+      "share_of_answer": 0.7858,
+      "claims": [
+       0,
+       1,
+       2,
+       3
+      ]
+     }
+    ],
+    "claims": [
+     {
+      "claim": "The purchase order number is LW-4411.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2102,
+      "supported": 0.9958,
+      "contradicted": 0.0016,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0013,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "PURCHASE ORDER LW-4411",
+       "start": 0,
+       "end": 22,
+       "confidence": 0.999
+      }
+     },
+     {
+      "claim": "The supplier is Ferncastle Paper Goods Ltd.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2443,
+      "supported": 0.9958,
+      "contradicted": 0.0018,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0012,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier: Ferncastle Paper Goods Ltd",
+       "start": 67,
+       "end": 103,
+       "confidence": 0.997
+      }
+     },
+     {
+      "claim": "The order total is USD 1,795.00.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.1818,
+      "supported": 0.9965,
+      "contradicted": 0.0012,
+      "not_stated": 0.0011,
+      "not_a_claim": 0.0012,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Order total: USD 1,795.00",
+       "start": 361,
+       "end": 386,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "Payment terms are net 30.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.142,
+      "supported": 0.996,
+      "contradicted": 0.0014,
+      "not_stated": 0.0012,
+      "not_a_claim": 0.0014,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Payment terms: Net 30",
+       "start": 127,
+       "end": 148,
+       "confidence": 0.947
+      }
+     },
+     {
+      "claim": "The supplier bank account ends in 3301.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2216,
+      "supported": 0.0476,
+      "contradicted": 0.0284,
+      "not_stated": 0.9065,
+      "not_a_claim": 0.0175,
+      "verdict": "not_stated",
+      "sources": {
+       "po": 1
+      },
+      "source": null,
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier account on file: ending 3301",
+       "start": 149,
+       "end": 186,
+       "confidence": 1
+      }
+     }
+    ],
+    "unsupported_claims": [
+     4
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+     "index": 4,
+     "supported": 0.0476
+    },
+    "timing": {
+     "read_ms": 128,
+     "total_ms": 130
+    }
+   }
+  },
+  "decide": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.0, admit_db;dur=0.9, upstream;dur=192.3, discovery;dur=0.0, model;dur=24.0, settle;dur=5.3, gateway;dur=203.5",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.030399",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "hold",
+      "probabilities": {
+       "approve": 0.4388,
+       "hold": 0.5222,
+       "reject": 0.039
+      },
+      "confidence": 0.2833
+     },
+     "priority": {
+      "type": "score",
+      "score": 0.4999,
+      "legend": {
+       "0": "low",
+       "1": "normal",
+       "2": "urgent"
+      },
+      "probabilities": {
+       "0": 0.5069,
+       "1": 0.4863,
+       "2": 0.0068
+      },
+      "confidence": 0.2603
+     }
+    },
+    "usage": {
+     "input_tokens": 302,
+     "output_tokens": 6
+    }
+   }
+  }
+ }
+}

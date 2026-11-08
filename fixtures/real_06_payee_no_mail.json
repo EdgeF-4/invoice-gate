@@ -1,0 +1,721 @@
+{
+ "_note": "REAL responses, last saved 2026-11-08 07:39 UTC by invoice_gate.py",
+ "sample": "06_payee_no_mail",
+ "steps": {
+  "injection": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.8, upstream;dur=196.5, discovery;dur=0.0, model;dur=31.5, settle;dur=5.1, gateway;dur=207.5",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "31.546593",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "injection": 0.0020983963168449415,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+     "benign": 0.9939511489653142,
+     "instruction override": 0.001616872848512013,
+     "role-play or persona jailbreak": 0.0007848950383261746,
+     "system prompt or secret extraction": 0.0009700612667961641,
+     "obfuscated or encoded payload": 0.0008019397678311582,
+     "tool misuse or data exfiltration": 0.0008662039296508126,
+     "social engineering": 0.0010088781835694534
+    },
+    "severity": "none",
+    "severity_expected": 1.013,
+    "severities": {
+     "none": 0.9940981089270751,
+     "low": 0.00244798634621403,
+     "medium": 0.0009990455297235147,
+     "high": 0.0011487910825979707,
+     "critical": 0.00130606811438942
+    },
+    "evidence": [],
+    "timing": {
+     "read_ms": 35,
+     "total_ms": 35
+    }
+   }
+  },
+  "pii": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.8, upstream;dur=261.2, discovery;dur=0.0, model;dur=174.3, settle;dur=5.2, gateway;dur=272.3",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "174.27034",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "entities": [
+     {
+      "type": "address",
+      "value": "22 Relay Road, Sampletown",
+      "start": 53,
+      "end": 78,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "person",
+      "value": "Ines Barrowclough",
+      "start": 88,
+      "end": 105,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "bank_account",
+      "value": "2291 5530 8840",
+      "start": 458,
+      "end": 472,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "email",
+      "value": "billing@example.net",
+      "start": 500,
+      "end": 519,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     }
+    ],
+    "counts": {
+     "address": 1,
+     "person": 1,
+     "bank_account": 1,
+     "email": 1
+    },
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "mentions": {
+     "candidates": 0,
+     "variants": 0,
+     "reads": 0,
+     "verified": 0,
+     "occurrences": {
+      "read": 0,
+      "kept": 0
+     },
+     "rejected": {},
+     "spans": 0,
+     "ms": 0
+    },
+    "checks": {
+     "trimmed": 0,
+     "split": 0,
+     "rejected": {}
+    },
+    "anonymized_text": "INVOICE GES-5120\nFrom: Glimmerholt Electrical Supply\n<ADDRESS>\nContact: <PERSON>, accounts\n\nBill to: Lanternfield Works Inc. (demo buyer)\nInvoice date: 2026-10-29\nDue date: 2026-11-28\nTerms: Net 30\nPurchase order: LW-4416\n\nItem                          Qty   Unit price   Amount\nLED panel 600 x 600, 36 W      24   47.00        1,128.00\n\nTotal due: USD 1,128.00\n\nPay by bank transfer to Glimmerholt Electrical Supply, account number <BANK_ACCOUNT>.\nSend remittance advice to <EMAIL>.\n",
+    "timing": {
+     "read_ms": 176,
+     "total_ms": 177
+    }
+   }
+  },
+  "extract_invoice": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=234.7, discovery;dur=0.0, model;dur=70.9, settle;dur=5.6, gateway;dur=246.2",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000598",
+    "x-clocked-credits": "3",
+    "x-clocked-model-ms": "70.930908",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "vendor": {
+      "value": "Glimmerholt Electrical Supply",
+      "start": 23,
+      "end": 52,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.462,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "Glimmerholt Electrical Supply",
+        "start": 412,
+        "p_verify": 1
+       },
+       {
+        "value": "GES-5120",
+        "start": 8,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "invoice_number": {
+      "value": "GES-5120",
+      "start": 8,
+      "end": 16,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "po_number": {
+      "value": "LW-4416",
+      "start": 239,
+      "end": 246,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "invoice_date": {
+      "value": "2026-10-29",
+      "start": 177,
+      "end": 187,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.912,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "22",
+        "start": 53,
+        "p_verify": 0
+       },
+       {
+        "value": "24",
+        "start": 335,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "due_date": {
+      "value": "28",
+      "start": 206,
+      "end": 208,
+      "p_start": 1,
+      "p_close": 0.991,
+      "p_point": 0.05,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "2026-10-29",
+        "start": 177,
+        "p_verify": 0
+       },
+       {
+        "value": "22",
+        "start": 53,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 0.991
+     },
+     "total": {
+      "value": null,
+      "confidence": 1,
+      "p_blank": 0,
+      "rejected_value": "128.00",
+      "rejected_p_verify": 0,
+      "reason": "verification_rejected"
+     },
+     "currency": {
+      "value": "USD",
+      "start": 374,
+      "end": 377,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "remit_email": {
+      "value": "billing@example.net",
+      "start": 500,
+      "end": 519,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "bank_account": {
+      "value": "2291 5530 8840",
+      "start": 458,
+      "end": 472,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.971,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "22",
+        "start": 53,
+        "p_verify": 0
+       },
+       {
+        "value": "2026-10-29",
+        "start": 177,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     }
+    },
+    "timing": {
+     "read_ms": 70,
+     "forwards": {
+      "fields": [
+       3,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "doc": 2,
+       "point": 21,
+       "resolve": 20,
+       "extend": 0,
+       "contest": 26,
+       "lists": 0,
+       "verify": 0
+      }
+     },
+     "total_ms": 70,
+     "server_ms": 73
+    }
+   }
+  },
+  "extract_po": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=181.8, discovery;dur=0.0, model;dur=95.7, settle;dur=5.2, gateway;dur=192.9",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "95.735901",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "po_number": {
+      "value": "LW-4416",
+      "start": 15,
+      "end": 22,
+      "confidence": 0.9999999994805504,
+      "p_verify": 0.9999999994805504
+     },
+     "vendor": {
+      "value": "Glimmerholt Electrical Supply",
+      "start": 77,
+      "end": 106,
+      "confidence": 0.9999999997545288,
+      "p_verify": 0.9999999997545288
+     },
+     "total": {
+      "value": "1,128.00",
+      "start": 296,
+      "end": 304,
+      "confidence": 0.9999999978348943,
+      "p_verify": 0.9999999978348943
+     },
+     "currency": {
+      "value": "USD",
+      "start": 319,
+      "end": 322,
+      "confidence": 0.9999999994147661,
+      "p_verify": 0.9999999994147661
+     },
+     "terms": {
+      "value": "Net 30",
+      "start": 145,
+      "end": 151,
+      "confidence": 0.9999999996308191,
+      "p_verify": 0.9999999996308191
+     },
+     "account_on_file": {
+      "value": "8840",
+      "start": 185,
+      "end": 189,
+      "confidence": 0.999999998808146,
+      "p_verify": 0.999999998808146
+     }
+    },
+    "timing": {
+     "read_ms": 95,
+     "forwards": {
+      "fields": [
+       5,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "reader": "recognition",
+       "doc": 1,
+       "branches": 0,
+       "generate": 66,
+       "locate": 0,
+       "verify": 26,
+       "assemble": 0
+      }
+     },
+     "total_ms": 95,
+     "server_ms": 98
+    }
+   }
+  },
+  "fill": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=7.2, admit_db;dur=2.2, upstream;dur=206.6, discovery;dur=0.0, model;dur=119.1, settle;dur=5.3, gateway;dur=219.1",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "119.116738",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "payment_terms": {
+      "value": "net 30",
+      "confidence": 0.995,
+      "probabilities": {
+       "net 15": 0.0007405071116031581,
+       "net 30": 0.9955170770192596,
+       "net 45": 0.0012486305944049828,
+       "net 60": 0.0009485384878691496,
+       "due on receipt": 0.0006961899514382393,
+       "not stated": 0.0008490568354248485
+      }
+     },
+     "asks_new_account": {
+      "value": false,
+      "confidence": 0.984,
+      "probabilities": {
+       "yes": 0.00807903559492451,
+       "no": 0.9919209644050755
+      }
+     },
+     "urgency_pressure": {
+      "value": false,
+      "confidence": 0.995,
+      "probabilities": {
+       "yes": 0.0026942409994769045,
+       "no": 0.9973057590005231
+      }
+     },
+     "approver_note": {
+      "value": "This invoice is for 24 LED panels 600 x 600, 36 W",
+      "confidence": 0.9959544239026686,
+      "source": "generated"
+     }
+    },
+    "timing": {
+     "read_ms": 46,
+     "generate_ms": 110,
+     "total_ms": 123,
+     "source_states": 1,
+     "source_prefills": 1,
+     "shared_source_tokens": 240,
+     "shared_read_generate_forwards": 1,
+     "engine": "unified"
+    }
+   }
+  },
+  "compare": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=7.5, admit_db;dur=2.4, upstream;dur=267.6, discovery;dur=0.0, model;dur=98.9, settle;dur=5.3, gateway;dur=280.4",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "98.911459",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "verdict": "overlaps",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+     {
+      "id": "invoice",
+      "duplicates": [],
+      "overlaps": [
+       "po"
+      ],
+      "conflicts": []
+     },
+     {
+      "id": "po",
+      "duplicates": [],
+      "overlaps": [
+       "invoice"
+      ],
+      "conflicts": []
+     }
+    ],
+    "pairs": [
+     {
+      "a": "invoice",
+      "b": "po",
+      "relation": "overlapping",
+      "related": 0.9947,
+      "probabilities": {
+       "same": 0.0335,
+       "overlapping": 0.9487,
+       "conflicting": 0.0125,
+       "unrelated": 0.0053
+      },
+      "duplicates": [
+       {
+        "confidence": 1,
+        "a": {
+         "document": "invoice",
+         "quote": "From: Glimmerholt Electrical Supply",
+         "start": 17,
+         "end": 52,
+         "confidence": 1
+        },
+        "b": {
+         "document": "po",
+         "quote": "PURCHASE ORDER LW-4416\nBuyer: Lanternfield Works Inc. (demo buyer)\nSupplier: Glimmerholt Electrical Supply\nOrder date: 2026-10-19\nPayment terms: Net 30\nSupplier account on file: ending 8840\n\nItem                          Qty   Unit price   Amount\nLED panel 600 x 600, 36 W      24   47.00        1,128.00\n\nOrder total: USD 1,128.00\nApproved by: Purchasing desk",
+         "start": 0,
+         "end": 360,
+         "confidence": 1
+        }
+       }
+      ],
+      "conflicts": []
+     }
+    ],
+    "duplicates": [],
+    "overlaps": [
+     0
+    ],
+    "conflicts": [],
+    "related_pairs": [
+     0
+    ],
+    "stages": {
+     "pairs_reread": 0,
+     "pairs_ms": 23,
+     "passage_reads": 1,
+     "passages_ms": 42,
+     "passages": 1,
+     "counterparts_ms": 40
+    },
+    "timing": {
+     "read_ms": 105,
+     "total_ms": 106
+    }
+   }
+  },
+  "grounding": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.7, admit_db;dur=0.8, upstream;dur=180.8, discovery;dur=0.0, model;dur=90.9, settle;dur=5.3, gateway;dur=191.8",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "90.879971",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "grounded": 0.8311,
+    "ungrounded": 0.1689,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "documents": [
+     {
+      "id": "po",
+      "share": 1,
+      "share_of_answer": 0.8311,
+      "claims": [
+       0,
+       1,
+       2
+      ]
+     }
+    ],
+    "claims": [
+     {
+      "claim": "The purchase order number is LW-4416.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2517,
+      "supported": 0.9958,
+      "contradicted": 0.0015,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0014,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "PURCHASE ORDER LW-4416",
+       "start": 0,
+       "end": 22,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "The supplier is Glimmerholt Electrical Supply.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.3129,
+      "supported": 0.9955,
+      "contradicted": 0.0016,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0016,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier: Glimmerholt Electrical Supply",
+       "start": 67,
+       "end": 106,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "Payment terms are net 30.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.1701,
+      "supported": 0.9956,
+      "contradicted": 0.0015,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0015,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Payment terms: Net 30",
+       "start": 130,
+       "end": 151,
+       "confidence": 0.999
+      }
+     },
+     {
+      "claim": "The supplier bank account ends in 8840.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2653,
+      "supported": 0.3756,
+      "contradicted": 0.0346,
+      "not_stated": 0.5574,
+      "not_a_claim": 0.0324,
+      "verdict": "not_stated",
+      "sources": {
+       "po": 1
+      },
+      "source": null,
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier account on file: ending 8840",
+       "start": 152,
+       "end": 189,
+       "confidence": 0.999
+      }
+     }
+    ],
+    "unsupported_claims": [
+     3
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+     "index": 3,
+     "supported": 0.3756
+    },
+    "timing": {
+     "read_ms": 95,
+     "total_ms": 97
+    }
+   }
+  },
+  "decide": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=115.7, discovery;dur=0.0, model;dur=24.2, settle;dur=5.0, gateway;dur=126.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.177153",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "hold",
+      "probabilities": {
+       "approve": 0.0022,
+       "hold": 0.9945,
+       "reject": 0.0032
+      },
+      "confidence": 0.9918
+     },
+     "priority": {
+      "type": "score",
+      "score": 0.573,
+      "legend": {
+       "0": "low",
+       "1": "normal",
+       "2": "urgent"
+      },
+      "probabilities": {
+       "0": 0.4577,
+       "1": 0.5117,
+       "2": 0.0306
+      },
+      "confidence": 0.2676
+     }
+    },
+    "usage": {
+     "input_tokens": 333,
+     "output_tokens": 6
+    }
+   }
+  }
+ }
+}

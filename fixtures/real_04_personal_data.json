@@ -1,0 +1,781 @@
+{
+ "_note": "REAL responses, last saved 2026-11-08 07:39 UTC by invoice_gate.py",
+ "sample": "04_personal_data",
+ "steps": {
+  "injection": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.8, upstream;dur=121.1, discovery;dur=0.0, model;dur=32.3, settle;dur=5.3, gateway;dur=132.2",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "32.267841",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "injection": 0.002967817314241117,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+     "benign": 0.995252995799948,
+     "instruction override": 0.0011173649942365488,
+     "role-play or persona jailbreak": 0.0006306452697577211,
+     "system prompt or secret extraction": 0.000877658507737017,
+     "obfuscated or encoded payload": 0.0006310199570305191,
+     "tool misuse or data exfiltration": 0.000686578128814412,
+     "social engineering": 0.0008037373424758118
+    },
+    "severity": "none",
+    "severity_expected": 1.011,
+    "severities": {
+     "none": 0.9957121545369679,
+     "low": 0.001241433219115659,
+     "medium": 0.0008751035373361113,
+     "high": 0.000995970828817871,
+     "critical": 0.0011753378777624285
+    },
+    "evidence": [],
+    "timing": {
+     "read_ms": 36,
+     "total_ms": 37
+    }
+   }
+  },
+  "pii": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.9, upstream;dur=232.4, discovery;dur=0.0, model;dur=145.3, settle;dur=5.3, gateway;dur=243.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "145.255142",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "entities": [
+     {
+      "type": "person",
+      "value": "Marisol Quentin-Vale",
+      "start": 22,
+      "end": 42,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 2
+     },
+     {
+      "type": "address",
+      "value": "27 Larkspur Close, Sampletown",
+      "start": 88,
+      "end": 117,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "phone",
+      "value": "+1 202 555 0143",
+      "start": 125,
+      "end": 140,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "email",
+      "value": "marisol.qv@quentinvale-translate.example",
+      "start": 148,
+      "end": 188,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 2
+     },
+     {
+      "type": "date_of_birth",
+      "value": "1984-03-09",
+      "start": 204,
+      "end": 214,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "ssn",
+      "value": "000-12-3456",
+      "start": 238,
+      "end": 249,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "person",
+      "value": "Marisol Quentin-Vale",
+      "start": 566,
+      "end": 586,
+      "confidence": 1,
+      "source": "mention",
+      "form": "exact",
+      "variant_of": "Marisol Quentin-Vale"
+     },
+     {
+      "type": "bank_account",
+      "value": "3108 4471 5562",
+      "start": 603,
+      "end": 617,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "email",
+      "value": "marisol.qv@quentinvale-translate.example",
+      "start": 645,
+      "end": 685,
+      "confidence": 1,
+      "source": "mention",
+      "form": "exact",
+      "variant_of": "marisol.qv@quentinvale-translate.example"
+     }
+    ],
+    "counts": {
+     "person": 2,
+     "address": 1,
+     "phone": 1,
+     "email": 2,
+     "date_of_birth": 1,
+     "ssn": 1,
+     "bank_account": 1
+    },
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "mentions": {
+     "candidates": 2,
+     "variants": 0,
+     "reads": 0,
+     "verified": 0,
+     "occurrences": {
+      "read": 0,
+      "kept": 0
+     },
+     "rejected": {},
+     "spans": 2,
+     "ms": 0
+    },
+    "checks": {
+     "trimmed": 0,
+     "split": 0,
+     "rejected": {}
+    },
+    "anonymized_text": "INVOICE MQV-118\nFrom: <PERSON>, freelance technical translator\nHome office: <ADDRESS>\nPhone: <PHONE>\nEmail: <EMAIL>\nDate of birth: <DATE_OF_BIRTH>\nTaxpayer number (SSN): <SSN>\n\nBill to: Lanternfield Works Inc. (demo buyer)\nInvoice date: 2026-10-31\nDue date: 2026-11-30\nTerms: Net 30\nPurchase order: LW-4414\n\nItem                                   Qty      Unit price   Amount\nTranslation, safety manual (words)     12,000   0.08         960.00\n\nTotal due: USD 960.00\n\nPay by bank transfer to <PERSON>, account number <BANK_ACCOUNT>.\nSend remittance advice to <EMAIL>.\n",
+    "timing": {
+     "read_ms": 147,
+     "total_ms": 148
+    }
+   }
+  },
+  "extract_invoice": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.8, upstream;dur=165.3, discovery;dur=0.0, model;dur=77.8, settle;dur=5.5, gateway;dur=176.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "77.772995",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "vendor": {
+      "value": "Marisol Quentin-Vale",
+      "start": 22,
+      "end": 42,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.448,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "Marisol Quentin-Vale",
+        "start": 566,
+        "p_verify": 1
+       }
+      ],
+      "confidence": 1
+     },
+     "invoice_number": {
+      "value": "MQV-118",
+      "start": 8,
+      "end": 15,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "po_number": {
+      "value": "LW-4414",
+      "start": 373,
+      "end": 380,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "invoice_date": {
+      "value": "2026-10-31",
+      "start": 311,
+      "end": 321,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.933,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "202 555 0143",
+        "start": 128,
+        "p_verify": 0
+       },
+       {
+        "value": "2026-11-30",
+        "start": 332,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "due_date": {
+      "value": "2026-11-30",
+      "start": 332,
+      "end": 342,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.675,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "202 555 0143",
+        "start": 128,
+        "p_verify": 0
+       },
+       {
+        "value": "2026-10-31",
+        "start": 311,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "total": {
+      "value": "960.00",
+      "start": 534,
+      "end": 540,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.85,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "960.00",
+        "start": 511,
+        "p_verify": 1
+       }
+      ],
+      "confidence": 1
+     },
+     "currency": {
+      "value": "USD",
+      "start": 530,
+      "end": 533,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "remit_email": {
+      "value": "marisol.qv@quentinvale-translate.example",
+      "start": 645,
+      "end": 685,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.289,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "marisol.qv@quentinvale-translate.example",
+        "start": 148,
+        "p_verify": 1
+       }
+      ],
+      "confidence": 1
+     },
+     "bank_account": {
+      "value": "3108 4471 5562",
+      "start": 603,
+      "end": 617,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.998,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "31",
+        "start": 319,
+        "p_verify": 1
+       },
+       {
+        "value": "3456",
+        "start": 245,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     }
+    },
+    "timing": {
+     "read_ms": 77,
+     "forwards": {
+      "fields": [
+       3,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "doc": 1,
+       "point": 22,
+       "resolve": 20,
+       "extend": 0,
+       "contest": 32,
+       "lists": 0,
+       "verify": 0
+      }
+     },
+     "total_ms": 77,
+     "server_ms": 81
+    }
+   }
+  },
+  "extract_po": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.8, upstream;dur=174.6, discovery;dur=0.0, model;dur=87.4, settle;dur=5.2, gateway;dur=185.7",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "87.415138",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "po_number": {
+      "value": "LW-4414",
+      "start": 15,
+      "end": 22,
+      "confidence": 0.999999999323161,
+      "p_verify": 0.999999999323161
+     },
+     "vendor": {
+      "value": "Marisol Quentin-Vale",
+      "start": 77,
+      "end": 97,
+      "confidence": 0.9999999985662498,
+      "p_verify": 0.9999999985662498
+     },
+     "total": {
+      "value": "960.00",
+      "start": 325,
+      "end": 331,
+      "confidence": 0.9999999991194155,
+      "p_verify": 0.9999999991194155
+     },
+     "currency": {
+      "value": "USD",
+      "start": 346,
+      "end": 349,
+      "confidence": 0.9999999994735871,
+      "p_verify": 0.9999999994735871
+     },
+     "terms": {
+      "value": "Net 30",
+      "start": 150,
+      "end": 156,
+      "confidence": 0.9999999993905482,
+      "p_verify": 0.9999999993905482
+     },
+     "account_on_file": {
+      "value": "5562",
+      "start": 190,
+      "end": 194,
+      "confidence": 0.9999999964572512,
+      "p_verify": 0.9999999964572512
+     }
+    },
+    "timing": {
+     "read_ms": 87,
+     "forwards": {
+      "fields": [
+       4,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "reader": "recognition",
+       "doc": 2,
+       "branches": 0,
+       "generate": 57,
+       "locate": 0,
+       "verify": 26,
+       "assemble": 0
+      }
+     },
+     "total_ms": 87,
+     "server_ms": 90
+    }
+   }
+  },
+  "fill": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.5, admit_db;dur=1.5, upstream;dur=267.1, discovery;dur=0.0, model;dur=101.9, settle;dur=5.3, gateway;dur=279.0",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "101.938882",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "payment_terms": {
+      "value": "net 30",
+      "confidence": 0.994,
+      "probabilities": {
+       "net 15": 0.0007839031492927507,
+       "net 30": 0.9952770182484572,
+       "net 45": 0.0012971585859591608,
+       "net 60": 0.0010018526302370781,
+       "due on receipt": 0.0007179692809488877,
+       "not stated": 0.0009220981051049657
+      }
+     },
+     "asks_new_account": {
+      "value": false,
+      "confidence": 0.987,
+      "probabilities": {
+       "yes": 0.006367305327910523,
+       "no": 0.9936326946720895
+      }
+     },
+     "urgency_pressure": {
+      "value": false,
+      "confidence": 0.994,
+      "probabilities": {
+       "yes": 0.00313186652494013,
+       "no": 0.9968681334750599
+      }
+     },
+     "approver_note": {
+      "value": "This invoice is for the translation of a safety manual consisting of 12,000 words",
+      "confidence": 0.9959864960571335,
+      "source": "generated"
+     }
+    },
+    "timing": {
+     "read_ms": 53,
+     "generate_ms": 92,
+     "total_ms": 106,
+     "source_states": 1,
+     "source_prefills": 1,
+     "shared_source_tokens": 304,
+     "shared_read_generate_forwards": 1,
+     "engine": "unified"
+    }
+   }
+  },
+  "compare": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=208.0, discovery;dur=0.0, model;dur=116.2, settle;dur=5.6, gateway;dur=219.4",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "116.221342",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "verdict": "clean",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+     {
+      "id": "invoice",
+      "duplicates": [],
+      "overlaps": [],
+      "conflicts": []
+     },
+     {
+      "id": "po",
+      "duplicates": [],
+      "overlaps": [],
+      "conflicts": []
+     }
+    ],
+    "pairs": [
+     {
+      "a": "invoice",
+      "b": "po",
+      "relation": "same",
+      "related": 0.9912,
+      "probabilities": {
+       "same": 0.8723,
+       "overlapping": 0.1051,
+       "conflicting": 0.0138,
+       "unrelated": 0.0088
+      },
+      "duplicates": [],
+      "conflicts": []
+     }
+    ],
+    "duplicates": [],
+    "overlaps": [],
+    "conflicts": [],
+    "related_pairs": [
+     0
+    ],
+    "stages": {
+     "pairs_reread": 0,
+     "pairs_ms": 24,
+     "passage_reads": 1,
+     "passages_ms": 42,
+     "passages": 1,
+     "counterparts_ms": 57
+    },
+    "timing": {
+     "read_ms": 122,
+     "total_ms": 124
+    }
+   }
+  },
+  "grounding": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.9, upstream;dur=299.7, discovery;dur=0.0, model;dur=132.2, settle;dur=5.7, gateway;dur=311.1",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.001195",
+    "x-clocked-credits": "6",
+    "x-clocked-model-ms": "132.203106",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "grounded": 0.8546,
+    "ungrounded": 0.1454,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "documents": [
+     {
+      "id": "po",
+      "share": 1,
+      "share_of_answer": 0.8546,
+      "claims": [
+       0,
+       1,
+       2,
+       3
+      ]
+     }
+    ],
+    "claims": [
+     {
+      "claim": "The purchase order number is LW-4414.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2202,
+      "supported": 0.9956,
+      "contradicted": 0.0013,
+      "not_stated": 0.0015,
+      "not_a_claim": 0.0015,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "PURCHASE ORDER LW-4414",
+       "start": 0,
+       "end": 22,
+       "confidence": 0.958
+      }
+     },
+     {
+      "claim": "The supplier is Marisol Quentin-Vale.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2202,
+      "supported": 0.9952,
+      "contradicted": 0.0017,
+      "not_stated": 0.0014,
+      "not_a_claim": 0.0017,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier: Marisol Quentin-Vale (sole trader)",
+       "start": 67,
+       "end": 111,
+       "confidence": 0.998
+      }
+     },
+     {
+      "claim": "The order total is USD 960.00.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.1786,
+      "supported": 0.9958,
+      "contradicted": 0.0016,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0013,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Order total: USD 960.00",
+       "start": 333,
+       "end": 356,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "Payment terms are net 30.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.1488,
+      "supported": 0.9956,
+      "contradicted": 0.0016,
+      "not_stated": 0.0014,
+      "not_a_claim": 0.0015,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Payment terms: Net 30",
+       "start": 135,
+       "end": 156,
+       "confidence": 0.991
+      }
+     },
+     {
+      "claim": "The supplier bank account ends in 5562.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2321,
+      "supported": 0.3883,
+      "contradicted": 0.03,
+      "not_stated": 0.5616,
+      "not_a_claim": 0.0202,
+      "verdict": "not_stated",
+      "sources": {
+       "po": 1
+      },
+      "source": null,
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier account on file: ending 5562",
+       "start": 157,
+       "end": 194,
+       "confidence": 0.999
+      }
+     }
+    ],
+    "unsupported_claims": [
+     4
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+     "index": 4,
+     "supported": 0.3883
+    },
+    "timing": {
+     "read_ms": 137,
+     "total_ms": 138
+    }
+   }
+  },
+  "decide": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.9, upstream;dur=112.3, discovery;dur=0.0, model;dur=24.0, settle;dur=5.5, gateway;dur=123.7",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "23.984608",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "approve",
+      "probabilities": {
+       "approve": 0.9857,
+       "hold": 0.0093,
+       "reject": 0.005
+      },
+      "confidence": 0.9786
+     },
+     "priority": {
+      "type": "score",
+      "score": 0.4979,
+      "legend": {
+       "0": "low",
+       "1": "normal",
+       "2": "urgent"
+      },
+      "probabilities": {
+       "0": 0.5101,
+       "1": 0.4819,
+       "2": 0.008
+      },
+      "confidence": 0.2651
+     }
+    },
+    "usage": {
+     "input_tokens": 300,
+     "output_tokens": 6
+    }
+   }
+  }
+ }
+}

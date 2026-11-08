@@ -1,0 +1,746 @@
+{
+ "_note": "REAL responses, last saved 2026-11-08 07:39 UTC by invoice_gate.py",
+ "sample": "05_overdue",
+ "steps": {
+  "injection": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.1, admit_db;dur=1.0, upstream;dur=189.9, discovery;dur=0.0, model;dur=26.0, settle;dur=5.1, gateway;dur=201.0",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000398",
+    "x-clocked-credits": "2",
+    "x-clocked-model-ms": "26.001728",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "injection": 0.0021317550284235542,
+    "verdict": "benign",
+    "threshold": 0.5,
+    "source": "content",
+    "instructions_used": "default",
+    "category": "benign",
+    "categories": {
+     "benign": 0.9947777374405847,
+     "instruction override": 0.0012401761530109242,
+     "role-play or persona jailbreak": 0.000714688688579752,
+     "system prompt or secret extraction": 0.0008249327631945118,
+     "obfuscated or encoded payload": 0.0007079471023281222,
+     "tool misuse or data exfiltration": 0.000811722418316244,
+     "social engineering": 0.0009227954339857154
+    },
+    "severity": "none",
+    "severity_expected": 1.011,
+    "severities": {
+     "none": 0.9953821411334494,
+     "low": 0.00166244718167198,
+     "medium": 0.0009971324070755544,
+     "high": 0.0008557043368859354,
+     "critical": 0.001102574940917169
+    },
+    "evidence": [],
+    "timing": {
+     "read_ms": 29,
+     "total_ms": 29
+    }
+   }
+  },
+  "pii": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.9, admit_db;dur=0.9, upstream;dur=256.8, discovery;dur=0.0, model;dur=169.2, settle;dur=5.5, gateway;dur=268.3",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.001394",
+    "x-clocked-credits": "7",
+    "x-clocked-model-ms": "169.241058",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "entities": [
+     {
+      "type": "address",
+      "value": "3 Ink Street, Sampletown",
+      "start": 73,
+      "end": 97,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "person",
+      "value": "Rowan Achterberg",
+      "start": 107,
+      "end": 123,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "bank_account",
+      "value": "6620 9013 2207",
+      "start": 542,
+      "end": 556,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     },
+     {
+      "type": "email",
+      "value": "billing@marrowgate-print.example",
+      "start": 584,
+      "end": 616,
+      "confidence": 1,
+      "source": "model",
+      "mentions": 1
+     }
+    ],
+    "counts": {
+     "address": 1,
+     "person": 1,
+     "bank_account": 1,
+     "email": 1
+    },
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "mentions": {
+     "candidates": 0,
+     "variants": 0,
+     "reads": 0,
+     "verified": 0,
+     "occurrences": {
+      "read": 0,
+      "kept": 0
+     },
+     "rejected": {},
+     "spans": 0,
+     "ms": 0
+    },
+    "checks": {
+     "trimmed": 0,
+     "split": 0,
+     "rejected": {}
+    },
+    "anonymized_text": "INVOICE MPS-3307 (SECOND NOTICE: PAST DUE)\nFrom: Marrowgate Print Studio\n<ADDRESS>\nContact: <PERSON>, studio office\n\nBill to: Lanternfield Works Inc. (demo buyer)\nInvoice date: 2026-08-28\nDue date: 2026-09-27\nTerms: Net 30\nPurchase order: LW-4415\n\nItem                          Qty     Unit price   Amount\nFlyers A5, full colour        2,000   0.32         640.00\n\nTotal due: USD 640.00\n\nThis invoice is past due. Please pay at your earliest convenience.\nPay by bank transfer to Marrowgate Print Studio, account number <BANK_ACCOUNT>.\nSend remittance advice to <EMAIL>.\n",
+    "timing": {
+     "read_ms": 171,
+     "total_ms": 173
+    }
+   }
+  },
+  "extract_invoice": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=7.5, admit_db;dur=2.1, upstream;dur=239.2, discovery;dur=0.0, model;dur=76.1, settle;dur=5.8, gateway;dur=252.5",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "76.072319",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "vendor": {
+      "value": "Marrowgate Print Studio",
+      "start": 49,
+      "end": 72,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.941,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "Marrowgate Print Studio",
+        "start": 502,
+        "p_verify": 1
+       },
+       {
+        "value": "MPS-3307",
+        "start": 8,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "invoice_number": {
+      "value": "MPS-3307",
+      "start": 8,
+      "end": 16,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "po_number": {
+      "value": "LW-4415",
+      "start": 262,
+      "end": 269,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "invoice_date": {
+      "value": "2026-08-28",
+      "start": 200,
+      "end": 210,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.649,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "2026-09-27",
+        "start": 221,
+        "p_verify": 0
+       },
+       {
+        "value": "28",
+        "start": 208,
+        "p_verify": 1
+       }
+      ],
+      "confidence": 1
+     },
+     "due_date": {
+      "value": "2026-09-27",
+      "start": 221,
+      "end": 231,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.761,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "2026-08-28",
+        "start": 200,
+        "p_verify": 0
+       },
+       {
+        "value": "27",
+        "start": 229,
+        "p_verify": 1
+       }
+      ],
+      "confidence": 1
+     },
+     "total": {
+      "value": "640.00",
+      "start": 403,
+      "end": 409,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.838,
+      "p_verify": 1,
+      "alternatives": [
+       {
+        "value": "640.00",
+        "start": 380,
+        "p_verify": 1
+       },
+       {
+        "value": "6620 9013 2207",
+        "start": 542,
+        "p_verify": 0
+       }
+      ],
+      "confidence": 1
+     },
+     "currency": {
+      "value": "USD",
+      "start": 399,
+      "end": 402,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "remit_email": {
+      "value": "billing@marrowgate-print.example",
+      "start": 584,
+      "end": 616,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.5,
+      "p_verify": 1,
+      "confidence": 1
+     },
+     "bank_account": {
+      "value": "6620 9013 2207",
+      "start": 542,
+      "end": 556,
+      "p_start": 1,
+      "p_close": 1,
+      "p_point": 0.991,
+      "p_verify": 1,
+      "confidence": 1
+     }
+    },
+    "timing": {
+     "read_ms": 76,
+     "forwards": {
+      "fields": [
+       3,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "doc": 1,
+       "point": 22,
+       "resolve": 20,
+       "extend": 0,
+       "contest": 31,
+       "lists": 0,
+       "verify": 0
+      }
+     },
+     "total_ms": 76,
+     "server_ms": 78
+    }
+   }
+  },
+  "extract_po": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=9.3, admit_db;dur=0.9, upstream;dur=170.0, discovery;dur=0.0, model;dur=84.0, settle;dur=5.2, gateway;dur=184.6",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "84.03904",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "po_number": {
+      "value": "LW-4415",
+      "start": 15,
+      "end": 22,
+      "confidence": 0.9999999995031614,
+      "p_verify": 0.9999999995031614
+     },
+     "vendor": {
+      "value": "Marrowgate Print Studio",
+      "start": 77,
+      "end": 100,
+      "confidence": 0.999999999625677,
+      "p_verify": 0.999999999625677
+     },
+     "total": {
+      "value": "640.00",
+      "start": 294,
+      "end": 300,
+      "confidence": 0.9999999995994087,
+      "p_verify": 0.9999999995994087
+     },
+     "currency": {
+      "value": "USD",
+      "start": 315,
+      "end": 318,
+      "confidence": 0.9999999992913324,
+      "p_verify": 0.9999999992913324
+     },
+     "terms": {
+      "value": "Net 30",
+      "start": 139,
+      "end": 145,
+      "confidence": 0.999999999596576,
+      "p_verify": 0.999999999596576
+     },
+     "account_on_file": {
+      "value": "2207",
+      "start": 179,
+      "end": 183,
+      "confidence": 0.9999999987181567,
+      "p_verify": 0.9999999987181567
+     }
+    },
+    "timing": {
+     "read_ms": 83,
+     "forwards": {
+      "fields": [
+       4,
+       1
+      ]
+     },
+     "stages": {
+      "fields": {
+       "reader": "recognition",
+       "doc": 1,
+       "branches": 0,
+       "generate": 55,
+       "locate": 0,
+       "verify": 25,
+       "assemble": 0
+      }
+     },
+     "total_ms": 83,
+     "server_ms": 86
+    }
+   }
+  },
+  "fill": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=11.1, admit_db;dur=0.9, upstream;dur=258.4, discovery;dur=0.0, model;dur=93.8, settle;dur=5.2, gateway;dur=274.8",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "93.752574",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "fields": {
+     "payment_terms": {
+      "value": "net 30",
+      "confidence": 0.994,
+      "probabilities": {
+       "net 15": 0.0008037872221455041,
+       "net 30": 0.9952106442324439,
+       "net 45": 0.0012078138034409174,
+       "net 60": 0.001069484840010614,
+       "due on receipt": 0.0007878494880663934,
+       "not stated": 0.0009204204138926965
+      }
+     },
+     "asks_new_account": {
+      "value": false,
+      "confidence": 0.99,
+      "probabilities": {
+       "yes": 0.0049206866920631365,
+       "no": 0.9950793133079369
+      }
+     },
+     "urgency_pressure": {
+      "value": false,
+      "confidence": 0.992,
+      "probabilities": {
+       "yes": 0.003971729365020327,
+       "no": 0.9960282706349797
+      }
+     },
+     "approver_note": {
+      "value": "This invoice is for 2,000 full colour A5 flyers",
+      "confidence": 0.9961053117946651,
+      "source": "generated"
+     }
+    },
+    "timing": {
+     "read_ms": 47,
+     "generate_ms": 83,
+     "total_ms": 97,
+     "source_states": 1,
+     "source_prefills": 1,
+     "shared_source_tokens": 240,
+     "shared_read_generate_forwards": 1,
+     "engine": "unified"
+    }
+   }
+  },
+  "compare": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.5, admit_db;dur=0.8, upstream;dur=184.4, discovery;dur=0.0, model;dur=92.5, settle;dur=5.2, gateway;dur=195.1",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000797",
+    "x-clocked-credits": "4",
+    "x-clocked-model-ms": "92.524769",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "verdict": "overlaps",
+    "threshold": 0.5,
+    "instructions_used": "custom",
+    "evidence": "flagged",
+    "documents": [
+     {
+      "id": "invoice",
+      "duplicates": [],
+      "overlaps": [
+       "po"
+      ],
+      "conflicts": []
+     },
+     {
+      "id": "po",
+      "duplicates": [],
+      "overlaps": [
+       "invoice"
+      ],
+      "conflicts": []
+     }
+    ],
+    "pairs": [
+     {
+      "a": "invoice",
+      "b": "po",
+      "relation": "overlapping",
+      "related": 0.9905,
+      "probabilities": {
+       "same": 0.1304,
+       "overlapping": 0.8397,
+       "conflicting": 0.0203,
+       "unrelated": 0.0095
+      },
+      "duplicates": [
+       {
+        "confidence": 1,
+        "a": {
+         "document": "invoice",
+         "quote": "Purchase order: LW-4415",
+         "start": 246,
+         "end": 269,
+         "confidence": 1
+        },
+        "b": {
+         "document": "po",
+         "quote": "PURCHASE ORDER LW-4415\nBuyer: Lanternfield Works Inc. (demo buyer)\nSupplier: Marrowgate Print Studio\nOrder date: 2026-08-20\nPayment terms: Net 30\nSupplier account on file: ending 2207\n\nItem                          Qty     Unit price   Amount\nFlyers A5, full colour        2,000   0.32         640.00\n\nOrder total: USD 640.00\nApproved by: Purchasing desk",
+         "start": 0,
+         "end": 354,
+         "confidence": 1
+        }
+       }
+      ],
+      "conflicts": []
+     }
+    ],
+    "duplicates": [],
+    "overlaps": [
+     0
+    ],
+    "conflicts": [],
+    "related_pairs": [
+     0
+    ],
+    "stages": {
+     "pairs_reread": 0,
+     "pairs_ms": 23,
+     "passage_reads": 1,
+     "passages_ms": 41,
+     "passages": 1,
+     "counterparts_ms": 34
+    },
+    "timing": {
+     "read_ms": 97,
+     "total_ms": 100
+    }
+   }
+  },
+  "grounding": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=6.1, admit_db;dur=0.8, upstream;dur=210.0, discovery;dur=0.0, model;dur=120.6, settle;dur=5.4, gateway;dur=221.5",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000996",
+    "x-clocked-credits": "5",
+    "x-clocked-model-ms": "120.580288",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "grounded": 0.8575,
+    "ungrounded": 0.1425,
+    "verdict": "partially_grounded",
+    "threshold": 0.5,
+    "instructions_used": "default",
+    "documents": [
+     {
+      "id": "po",
+      "share": 1,
+      "share_of_answer": 0.8575,
+      "claims": [
+       0,
+       1,
+       2,
+       3
+      ]
+     }
+    ],
+    "claims": [
+     {
+      "claim": "The purchase order number is LW-4415.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2164,
+      "supported": 0.9958,
+      "contradicted": 0.0016,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0013,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "PURCHASE ORDER LW-4415",
+       "start": 0,
+       "end": 22,
+       "confidence": 0.953
+      }
+     },
+     {
+      "claim": "The supplier is Marrowgate Print Studio.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2339,
+      "supported": 0.9955,
+      "contradicted": 0.0018,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0015,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier: Marrowgate Print Studio",
+       "start": 67,
+       "end": 100,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "The order total is USD 640.00.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.1754,
+      "supported": 0.9959,
+      "contradicted": 0.0015,
+      "not_stated": 0.0013,
+      "not_a_claim": 0.0013,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Order total: USD 640.00",
+       "start": 302,
+       "end": 325,
+       "confidence": 1
+      }
+     },
+     {
+      "claim": "Payment terms are net 30.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.1462,
+      "supported": 0.996,
+      "contradicted": 0.0015,
+      "not_stated": 0.0012,
+      "not_a_claim": 0.0013,
+      "verdict": "supported",
+      "sources": {
+       "po": 1
+      },
+      "source": "po",
+      "evidence": {
+       "document": "po",
+       "quote": "Payment terms: Net 30",
+       "start": 124,
+       "end": 145,
+       "confidence": 0.94
+      }
+     },
+     {
+      "claim": "The supplier bank account ends in 2207.",
+      "kind": "claim",
+      "counted": true,
+      "weight": 0.2281,
+      "supported": 0.3897,
+      "contradicted": 0.0353,
+      "not_stated": 0.5564,
+      "not_a_claim": 0.0186,
+      "verdict": "not_stated",
+      "sources": {
+       "po": 1
+      },
+      "source": null,
+      "evidence": {
+       "document": "po",
+       "quote": "Supplier account on file: ending 2207",
+       "start": 146,
+       "end": 183,
+       "confidence": 0.998
+      }
+     }
+    ],
+    "unsupported_claims": [
+     4
+    ],
+    "not_claims": [],
+    "weakest_claim": {
+     "index": 4,
+     "supported": 0.3897
+    },
+    "timing": {
+     "read_ms": 124,
+     "total_ms": 126
+    }
+   }
+  },
+  "decide": {
+   "note": "REAL response",
+   "status": 200,
+   "headers": {
+    "server-timing": "admit;dur=5.8, admit_db;dur=0.8, upstream;dur=112.0, discovery;dur=0.0, model;dur=24.1, settle;dur=5.0, gateway;dur=122.8",
+    "x-clocked-cost-basis": "reference",
+    "x-clocked-cost-usd": "0.000199",
+    "x-clocked-credits": "1",
+    "x-clocked-model-ms": "24.099775",
+    "x-clocked-transport": "door:east"
+   },
+   "body": {
+    "model": "clocked-1.0",
+    "answers": {
+     "action": {
+      "type": "choice",
+      "choice": "hold",
+      "probabilities": {
+       "approve": 0.0363,
+       "hold": 0.9324,
+       "reject": 0.0313
+      },
+      "confidence": 0.8987
+     },
+     "priority": {
+      "type": "score",
+      "score": 0.8078,
+      "legend": {
+       "0": "low",
+       "1": "normal",
+       "2": "urgent"
+      },
+      "probabilities": {
+       "0": 0.2822,
+       "1": 0.6277,
+       "2": 0.09
+      },
+      "confidence": 0.4416
+     }
+    },
+    "usage": {
+     "input_tokens": 310,
+     "output_tokens": 6
+    }
+   }
+  }
+ }
+}
